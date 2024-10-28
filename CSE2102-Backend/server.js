@@ -1,6 +1,10 @@
 const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
+const dotenv = require('dotenv');
+
+dotenv.config();
+const db_pass = process.env.DB_PASS;
 
 const app = express()
 app.use(cors())
@@ -8,7 +12,7 @@ app.use(cors())
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: db_pass,
     database: 'health_center_database'
 })
 
