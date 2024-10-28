@@ -1,4 +1,4 @@
-import AdminNavBar from '../../src/components/AdminNavBar'
+import AdminNavBar from '../../../src/components/AdminComponents/AdminNavBar'
 
 function AdminPage() {
 
