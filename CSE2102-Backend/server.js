@@ -21,7 +21,7 @@ app.get('/', (re, res) => {
 })
 
 app.get('/users', (re, res) => {
-    const sql = "SELECT * FROM staff"
+    const sql = "SELECT * FROM prescriptions WHERE Staff_ID = 23"
     db.query(sql, (err, data) => {
         if(err) return res.json(err)
         return res.json(data)
