@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 import App from './App.tsx'
 import AdminStaffPage from '../public/pages/AdminPages/AdminStaffPage.tsx'
+import AdminAppointmentsPage from '../public/pages/AdminPages/AdminAppointmentsPage.tsx'
+import AdminMedicalRecordsPage from '../public/pages/AdminPages/AdminMedicalRecordsPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
   {
     path: '/admin/staff',
     element: <AdminStaffPage />
+  },
+  {
+    path: '/admin/appointments',
+    element: <AdminAppointmentsPage />
+  },
+  {
+    path: '/admin/medical-records',
+    element: <AdminMedicalRecordsPage />
   }
 ]);
 

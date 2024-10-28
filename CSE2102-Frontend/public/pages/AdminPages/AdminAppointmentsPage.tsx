@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
-import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-interface StaffMember {
+interface Appointments {
+	Appointment_ID: number;
+	Patient_ID: number;
 	Staff_ID: number;
-	First_Name: string;
-	Last_Name: string;
-	Role: string;
-	Specialty: string;
-	Contact_Number: string;
-	Email: string;
+    Date: string;
+    Time: string;
+    Reason_for_Visit: string;
 }
 
-function AdminStaffPage() {
-	const [data, setData] = useState<StaffMember[]>([]);
+function AdminAppointmentsPage() {
+	const [data, setData] = useState<Appointments[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
 
 	useEffect(() => {
-		fetch('http://localhost:8081/admin-staff')
+		fetch('http://localhost:8081/admin-appointments')
 			.then((res) => res.json())
-			.then((data: StaffMember[]) => {
+			.then((data: Appointments[]) => {
 				setData(data);
 			})
 			.catch((err) => console.log(err));
@@ -30,9 +28,9 @@ function AdminStaffPage() {
 
 	const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-		fetch(`http://localhost:8081/admin-staff/${searchQuery}`)
+		fetch(`http://localhost:8081/admin-appointments/${searchQuery}`)
 			.then((res) => res.json())
-			.then((data: StaffMember[]) => setData(data))
+			.then((data: Appointments[]) => setData(data))
 			.catch((err) => console.log(err));
 	};
 
@@ -63,12 +61,9 @@ function AdminStaffPage() {
 							key={i}
 						>
 							<div className="ms-2 me-auto">
-								<div className="fw-bold">{`${d.First_Name} ${d.Last_Name}`}</div>
-								{`Role: ${d.Role} | Specialty: ${d.Specialty} | Contact Number: ${d.Contact_Number} | Email: ${d.Email}`}
+								<div className="fw-bold">{`Appointment ID: ${d.Appointment_ID}`}</div>
+								{`Patient ID: ${d.Patient_ID} | Staff_ID: ${d.Staff_ID} | Date: ${d.Date.substring(0, 10)} | Time: ${d.Time} | Reason for Visit: ${d.Reason_for_Visit}`}
 							</div>
-							<Badge bg="primary" pill>
-								ID: {d.Staff_ID}
-							</Badge>
 						</ListGroup.Item>
 					))
 				) : (
@@ -79,4 +74,4 @@ function AdminStaffPage() {
 	);
 }
 
-export default AdminStaffPage;
+export default AdminAppointmentsPage;

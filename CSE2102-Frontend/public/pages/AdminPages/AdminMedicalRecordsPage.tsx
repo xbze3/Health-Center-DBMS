@@ -1,28 +1,27 @@
 import { useEffect, useState } from "react";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
-import Badge from 'react-bootstrap/Badge';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-interface StaffMember {
+interface MedicalRecords {
+	Record_ID: number;
+	Patient_ID: number;
 	Staff_ID: number;
-	First_Name: string;
-	Last_Name: string;
-	Role: string;
-	Specialty: string;
-	Contact_Number: string;
-	Email: string;
+    Diagnosis: string;
+    Treatment: string;
+    Visit_Date: string;
+    Notes: string;
 }
 
-function AdminStaffPage() {
-	const [data, setData] = useState<StaffMember[]>([]);
+function AdminMedicalRecordsPage() {
+	const [data, setData] = useState<MedicalRecords[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
 
 	useEffect(() => {
-		fetch('http://localhost:8081/admin-staff')
+		fetch('http://localhost:8081/admin-medical-records')
 			.then((res) => res.json())
-			.then((data: StaffMember[]) => {
+			.then((data: MedicalRecords[]) => {
 				setData(data);
 			})
 			.catch((err) => console.log(err));
@@ -30,9 +29,9 @@ function AdminStaffPage() {
 
 	const handleSearch = (event: React.FormEvent) => {
         event.preventDefault();
-		fetch(`http://localhost:8081/admin-staff/${searchQuery}`)
+		fetch(`http://localhost:8081/admin-medical-records/${searchQuery}`)
 			.then((res) => res.json())
-			.then((data: StaffMember[]) => setData(data))
+			.then((data: MedicalRecords[]) => setData(data))
 			.catch((err) => console.log(err));
 	};
 
@@ -63,12 +62,9 @@ function AdminStaffPage() {
 							key={i}
 						>
 							<div className="ms-2 me-auto">
-								<div className="fw-bold">{`${d.First_Name} ${d.Last_Name}`}</div>
-								{`Role: ${d.Role} | Specialty: ${d.Specialty} | Contact Number: ${d.Contact_Number} | Email: ${d.Email}`}
+								<div className="fw-bold">{`Record ID: ${d.Record_ID}`}</div>
+								{`Patient ID: ${d.Patient_ID} | Staff_ID: ${d.Staff_ID} | Diagnosis: ${d.Diagnosis} | Treatment: ${d.Treatment} | Date: ${d.Visit_Date.substring(0, 10)} | Notes: ${d.Notes}`}
 							</div>
-							<Badge bg="primary" pill>
-								ID: {d.Staff_ID}
-							</Badge>
 						</ListGroup.Item>
 					))
 				) : (
@@ -79,4 +75,4 @@ function AdminStaffPage() {
 	);
 }
 
-export default AdminStaffPage;
+export default AdminMedicalRecordsPage;

@@ -23,19 +23,19 @@ function AdminNavBar() {
             navbarScroll
           >
             <Link to={`/admin/staff`}>
-              <Nav.Link href="#action5">Staff</Nav.Link>
+              <Nav.Link href="#action1">Staff</Nav.Link>
             </Link>
             <Link to={`/admin/appointments`}>
               <Nav.Link href="#action2">Appointments</Nav.Link>
             </Link>
             <Link to={`/admin/medical-records`}>
-              <Nav.Link href="#action2">Medical Records</Nav.Link>
+              <Nav.Link href="#action3">Medical Records</Nav.Link>
             </Link>
             <Link to={`/admin/patients`}>
-              <Nav.Link href="#action3">Patients</Nav.Link>
+              <Nav.Link href="#action4">Patients</Nav.Link>
             </Link>
             <Link to={`/admin/prescriptions`}>
-              <Nav.Link href="#action4">Prescriptions</Nav.Link>
+              <Nav.Link href="#action5">Prescriptions</Nav.Link>
             </Link>
             <Link to={`/admin/billing-invoices`}>
               <Nav.Link href="#action6">Billing / Invoices</Nav.Link>

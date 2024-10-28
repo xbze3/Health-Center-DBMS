@@ -30,7 +30,43 @@ app.get('/admin-staff', (re, res) => {
 
 app.get('/admin-staff/:value', (re, res) => {
     const { value } = re.params;
-    const sql = "SELECT * FROM staff WHERE Staff_ID LIKE '%" + value + "%' OR First_Name LIKE '%" + value + "%' OR Last_Name LIKE '%" + value + "%' OR Role LIKE '%" + value + "%' OR Specialty LIKE '%" + value + "%' OR Contact_Number LIKE '%" + value + "%' OR Email LIKE '%" + value + "%'";
+    const sql = "SELECT * FROM staff WHERE " + value;
+    
+    db.query(sql, [value], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+app.get('/admin-appointments', (re, res) => {
+    const sql = "SELECT * FROM appointments;"
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get('/admin-appointments/:value', (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM appointments WHERE " + value;
+    
+    db.query(sql, [value], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+app.get('/admin-medical-records', (re, res) => {
+    const sql = "SELECT * FROM `medical records`;"
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get('/admin-medical-records/:value', (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM `medical records` WHERE " + value;
     
     db.query(sql, [value], (err, data) => {
         if (err) return res.json(err);
