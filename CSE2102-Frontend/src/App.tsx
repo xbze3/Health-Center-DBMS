@@ -1,13 +1,7 @@
-import './App.css'
-import AdminPage from '../public/pages/AdminPages/AdminPage'
+import "./App.css";
 
 function App() {
-
-return (
-		<>
-			<AdminPage />
-		</>
-	)
+    return <>Under Construction</>;
 }
 
-export default App
+export default App;

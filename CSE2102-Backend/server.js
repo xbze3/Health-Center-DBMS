@@ -122,14 +122,15 @@ app.get('/admin-prescriptions/:value', (re, res) => {
 
 
 app.get('/admin-billing-invoices', (re, res) => {
-    const sql = "SELECT * FROM `billing/invoices`;"
+    const sql = "SELECT * FROM `billing/invoices`";
+
     db.query(sql, (err, data) => {
         if(err) return res.json(err)
         return res.json(data)
     })
 })
 
-app.get('/admin-prescriptions/:value', (re, res) => {
+app.get('/admin-billing-invoices/:value', (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM `billing/invoices` WHERE " + value;
     
