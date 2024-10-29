@@ -20,6 +20,8 @@ app.get('/', (re, res) => {
     return res.json("From Backend Side")
 })
 
+
+
 app.get('/admin-staff', (re, res) => {
     const sql = "SELECT * FROM staff;"
     db.query(sql, (err, data) => {
@@ -37,6 +39,8 @@ app.get('/admin-staff/:value', (re, res) => {
         return res.json(data);
     });
 });
+
+
 
 app.get('/admin-appointments', (re, res) => {
     const sql = "SELECT * FROM appointments;"
@@ -56,6 +60,8 @@ app.get('/admin-appointments/:value', (re, res) => {
     });
 });
 
+
+
 app.get('/admin-medical-records', (re, res) => {
     const sql = "SELECT * FROM `medical records`;"
     db.query(sql, (err, data) => {
@@ -73,6 +79,67 @@ app.get('/admin-medical-records/:value', (re, res) => {
         return res.json(data);
     });
 });
+
+
+
+app.get('/admin-patients', (re, res) => {
+    const sql = "SELECT * FROM patients;"
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get('/admin-patients/:value', (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM patients WHERE " + value;
+    
+    db.query(sql, [value], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+
+
+app.get('/admin-prescriptions', (re, res) => {
+    const sql = "SELECT * FROM prescriptions;"
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get('/admin-prescriptions/:value', (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM prescriptions WHERE " + value;
+    
+    db.query(sql, [value], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+
+app.get('/admin-billing-invoices', (re, res) => {
+    const sql = "SELECT * FROM `billing/invoices`;"
+    db.query(sql, (err, data) => {
+        if(err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get('/admin-prescriptions/:value', (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM `billing/invoices` WHERE " + value;
+    
+    db.query(sql, [value], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+
 
 app.listen(8081, () => {
     console.log("Listening...")

@@ -8,6 +8,8 @@ import App from './App.tsx'
 import AdminStaffPage from '../public/pages/AdminPages/AdminStaffPage.tsx'
 import AdminAppointmentsPage from '../public/pages/AdminPages/AdminAppointmentsPage.tsx'
 import AdminMedicalRecordsPage from '../public/pages/AdminPages/AdminMedicalRecordsPage.tsx'
+import AdminPatientsPage from '../public/pages/AdminPages/AdminPatientsPage.tsx'
+import AdminPrescriptionsPage from '../public/pages/AdminPages/AdminPrescriptionsPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: '/admin/medical-records',
     element: <AdminMedicalRecordsPage />
+  },
+  {
+    path: '/admin/patients',
+    element: <AdminPatientsPage />
+  },
+  {
+    path: '/admin/prescriptions',
+    element: <AdminPrescriptionsPage />
   }
 ]);
 
