@@ -1,7 +1,11 @@
 import "./App.css";
 
 function App() {
-    return <>Under Construction</>;
+    return (
+        <>
+            <h1>Under Construction</h1>
+        </>
+    );
 }
 
 export default App;
