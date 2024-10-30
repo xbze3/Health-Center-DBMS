@@ -1,4 +1,4 @@
-import BillingInvoicesPage from "../../../src/components/BillingInvoicesPageComponent";
+import BillingInvoicesPage from "../../../src/components/PageComponents/BillingInvoicesPageComponent";
 
 function AdminBillingInvoicesPage() {
     return (

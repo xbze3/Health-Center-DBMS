@@ -1,4 +1,4 @@
-import AppointmentsPageComponent from "../../../src/components/AppointmentsPageComponent";
+import AppointmentsPageComponent from "../../../src/components/PageComponents/AppointmentsPageComponent";
 
 function AdminAppointmentsPage() {
     return (

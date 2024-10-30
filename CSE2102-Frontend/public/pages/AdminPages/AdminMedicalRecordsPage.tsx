@@ -1,4 +1,4 @@
-import MedicalRecordsPageComponent from "../../../src/components/MedicalRecordsPageComponent";
+import MedicalRecordsPageComponent from "../../../src/components/PageComponents/MedicalRecordsPageComponent";
 
 function AdminMedicalRecordsPage() {
     return (

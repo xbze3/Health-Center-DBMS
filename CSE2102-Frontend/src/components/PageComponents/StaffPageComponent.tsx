@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import AdminNavBar from "./AdminComponents/AdminNavBar";
-import Badge from "react-bootstrap/Badge";
+import AdminNavBar from "../AdminComponents/AdminNavBar";
 import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
+import ListItemComponent from "../WebItemComponents/ListGroupComponent";
 
 interface StaffMember {
     Staff_ID: number;
@@ -48,36 +47,21 @@ function StaffPageComponent({
         <>
             <AdminNavBar />
 
-            <Form className="d-flex m-3" onSubmit={handleSearch}>
-                <Form.Control
-                    type="search"
-                    placeholder="SQL Search Query"
-                    className="me-2"
-                    aria-label="Search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Button variant="outline-success" type="submit">
-                    Search
-                </Button>
-            </Form>
+            <SearchBarComponent
+                searchQuery={searchQuery}
+                onSearchChange={(e) => setSearchQuery(e.target.value)}
+                onSearchSubmit={handleSearch}
+            />
 
             <ListGroup as="ul">
                 {Array.isArray(data) ? (
                     data.map((d, i) => (
-                        <ListGroup.Item
-                            as="li"
-                            className="d-flex justify-content-between align-items-start"
+                        <ListItemComponent
                             key={i}
-                        >
-                            <div className="ms-2 me-auto">
-                                <div className="fw-bold">{`${d.First_Name} ${d.Last_Name}`}</div>
-                                {`Role: ${d.Role} | Specialty: ${d.Specialty} | Contact Number: ${d.Contact_Number} | Email: ${d.Email}`}
-                            </div>
-                            <Badge bg="primary" pill>
-                                ID: {d.Staff_ID}
-                            </Badge>
-                        </ListGroup.Item>
+                            title={`${d.First_Name} ${d.Last_Name}`}
+                            details={`Role: ${d.Role} | Specialty: ${d.Specialty} | Contact Number: ${d.Contact_Number} | Email: ${d.Email}`}
+                            badgeText={`ID: ${d.Staff_ID}`}
+                        />
                     ))
                 ) : (
                     <ListGroup.Item>No data available</ListGroup.Item>

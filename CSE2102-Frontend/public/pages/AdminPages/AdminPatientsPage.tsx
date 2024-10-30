@@ -1,4 +1,4 @@
-import PatientsPageComponent from "../../../src/components/PatientsPageComponent";
+import PatientsPageComponent from "../../../src/components/PageComponents/PatientsPageComponent";
 
 function AdminPatientsPage() {
     return (

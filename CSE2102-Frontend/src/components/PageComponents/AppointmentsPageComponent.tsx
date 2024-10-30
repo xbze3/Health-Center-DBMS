@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import AdminNavBar from "./AdminComponents/AdminNavBar";
+import AdminNavBar from "../AdminComponents/AdminNavBar";
 import ListGroup from "react-bootstrap/ListGroup";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
+import ListItemComponent from "../WebItemComponents/ListGroupComponent";
 
 interface Appointments {
     Appointment_ID: number;
@@ -46,37 +46,24 @@ function AppointmentsPageComponent({
         <>
             <AdminNavBar />
 
-            <Form className="d-flex m-3" onSubmit={handleSearch}>
-                <Form.Control
-                    type="search"
-                    placeholder="SQL Search Query"
-                    className="me-2"
-                    aria-label="Search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Button variant="outline-success" onClick={handleSearch}>
-                    Search
-                </Button>
-            </Form>
+            <SearchBarComponent
+                searchQuery={searchQuery}
+                onSearchChange={(e) => setSearchQuery(e.target.value)}
+                onSearchSubmit={handleSearch}
+            />
 
             <ListGroup as="ul">
                 {Array.isArray(data) ? (
                     data.map((d, i) => (
-                        <ListGroup.Item
-                            as="li"
-                            className="d-flex justify-content-between align-items-start"
+                        <ListItemComponent
                             key={i}
-                        >
-                            <div className="ms-2 me-auto">
-                                <div className="fw-bold">{`Appointment ID: ${d.Appointment_ID}`}</div>
-                                {`Patient ID: ${d.Patient_ID} | Staff ID: ${
-                                    d.Staff_ID
-                                } | Date: ${d.Date.substring(0, 10)} | Time: ${
-                                    d.Time
-                                } | Reason for Visit: ${d.Reason_for_Visit}`}
-                            </div>
-                        </ListGroup.Item>
+                            title={`Appointment ID: ${d.Appointment_ID}`}
+                            details={`Patient ID: ${d.Patient_ID} | Staff ID: ${
+                                d.Staff_ID
+                            } | Date: ${d.Date.substring(0, 10)} | Time: ${
+                                d.Time
+                            } | Reason for Visit: ${d.Reason_for_Visit}`}
+                        />
                     ))
                 ) : (
                     <ListGroup.Item>No data available</ListGroup.Item>

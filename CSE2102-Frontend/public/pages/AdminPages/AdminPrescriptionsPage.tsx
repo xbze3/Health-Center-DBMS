@@ -1,4 +1,4 @@
-import PrescriptionsPageComponent from "../../../src/components/PrescriptionsPageComponent";
+import PrescriptionsPageComponent from "../../../src/components/PageComponents/PrescriptionsPageComponent";
 
 function AdminPrescriptionsPage() {
     return (

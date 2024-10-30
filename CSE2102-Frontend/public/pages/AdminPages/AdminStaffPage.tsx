@@ -1,4 +1,4 @@
-import StaffPageComponent from "../../../src/components/StaffPageComponent";
+import StaffPageComponent from "../../../src/components/PageComponents/StaffPageComponent";
 
 function AdminStaffPage() {
     return (
