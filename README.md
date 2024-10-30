@@ -1,4 +1,4 @@
-# CSE2102-Project
+# CSE2102-Project: Health Center Database Management System
 
 This is a Health Center Database Management System built with MySQL, ExpressJS and ReactJS
 
