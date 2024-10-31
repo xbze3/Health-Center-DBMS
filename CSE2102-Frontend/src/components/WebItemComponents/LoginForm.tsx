@@ -80,7 +80,7 @@ function LoginForm() {
 
                     <div className="submit-container">
                         <button type="submit" className="submit">
-                            Submit
+                            Login
                         </button>
                     </div>
                 </form>
