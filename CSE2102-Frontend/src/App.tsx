@@ -1,9 +1,10 @@
 import "./App.css";
+import LoginForm from "./components/WebItemComponents/LoginForm";
 
 function App() {
     return (
         <>
-            <h1>Under Construction</h1>
+            <LoginForm />
         </>
     );
 }

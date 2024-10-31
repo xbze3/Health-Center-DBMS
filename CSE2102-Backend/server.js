@@ -145,6 +145,86 @@ app.get("/admin-billing-invoices/:value", (re, res) => {
 
 // End of Admin Queries
 
+// Doctor Queries
+
+// Doctor Appointments
+
+app.get("/doctor-appointments/:value", (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM appointments WHERE Staff_ID = " + value;
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+app.get("/doctor-appointments/:value1/:value2", (re, res) => {
+    const { value1 } = re.params;
+    const { value2 } = re.params;
+    const sql =
+        "SELECT * FROM appointments WHERE Staff_ID = " +
+        value1 +
+        " AND " +
+        value2;
+
+    db.query(sql, [value1, value2], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+// Doctor Medical Records
+
+app.get("/doctor-medical-records/:value", (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM `medical records` WHERE Staff_ID = " + value;
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+app.get("/doctor-appointments/:value1/:value2", (re, res) => {
+    const { value1 } = re.params;
+    const { value2 } = re.params;
+    const sql =
+        "SELECT * FROM `medical records` WHERE Staff_ID = " +
+        value1 +
+        " AND " +
+        value2;
+
+    db.query(sql, [value1, value2], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+// Doctor Prescriptions
+
+app.get("/doctor-prescriptions/:value", (re, res) => {
+    const { value } = re.params;
+    const sql = "SELECT * FROM prescriptions WHERE Staff_ID = " + value;
+    db.query(sql, (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
+app.get("/doctor-prescriptions/:value1/:value2", (re, res) => {
+    const { value1 } = re.params;
+    const { value2 } = re.params;
+    const sql =
+        "SELECT * FROM prescriptions WHERE Staff_ID = " +
+        value1 +
+        " AND " +
+        value2;
+
+    db.query(sql, [value1, value2], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+});
+
 app.listen(8081, () => {
     console.log("Listening...");
 });

@@ -5,10 +5,9 @@ function DoctorAppointmentsPage() {
     return (
         <>
             <DoctorNavBar />
-            Appointments Page
             <AppointmentsPageComponent
                 initialFetchUrl="http://localhost:8081/doctor-appointments/20"
-                searchBaseUrl="http://localhost:8081/doctor-appointments"
+                searchBaseUrl="http://localhost:8081/doctor-appointments/20"
             />
         </>
     );
