@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import AdminNavBar from "../AdminComponents/AdminNavBar";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
 import ListItemComponent from "../WebItemComponents/ListGroupComponent";
@@ -43,8 +42,6 @@ function BillingInvoicesPageComponent({
 
     return (
         <>
-            <AdminNavBar />
-
             <SearchBarComponent
                 searchQuery={searchQuery}
                 onSearchChange={(e) => setSearchQuery(e.target.value)}

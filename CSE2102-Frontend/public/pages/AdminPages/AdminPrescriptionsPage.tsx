@@ -1,11 +1,16 @@
 import PrescriptionsPageComponent from "../../../src/components/PageComponents/PrescriptionsPageComponent";
+import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 
 function AdminPrescriptionsPage() {
     return (
-        <PrescriptionsPageComponent
-            initialFetchUrl="http://localhost:8081/admin-prescriptions"
-            searchBaseUrl="http://localhost:8081/admin-prescriptions"
-        />
+        <>
+            <AdminNavBar />
+
+            <PrescriptionsPageComponent
+                initialFetchUrl="http://localhost:8081/admin-prescriptions"
+                searchBaseUrl="http://localhost:8081/admin-prescriptions"
+            />
+        </>
     );
 }
 
