@@ -13,6 +13,9 @@ import AdminPatientsPage from "../public/pages/AdminPages/AdminPatientsPage.tsx"
 import AdminPrescriptionsPage from "../public/pages/AdminPages/AdminPrescriptionsPage.tsx";
 import AdminBillingInvoicesPage from "../public/pages/AdminPages/AdminBillingInvoicesPage.tsx";
 import DoctorPage from "../public/pages/DoctorPages/DoctorPage.tsx";
+import DoctorPrescriptionPage from "../public/pages/DoctorPages/DoctorPrescriptionsPage.tsx";
+import DoctorAppointmentsPage from "../public/pages/DoctorPages/DoctorAppointmentsPage.tsx";
+import DoctorMedicalRecordsPage from "../public/pages/DoctorPages/DoctorMedicalRecordsPage.tsx";
 
 const router = createBrowserRouter([
     {
@@ -54,15 +57,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/doctor/appointments",
-        element: <DoctorPage />,
+        element: <DoctorAppointmentsPage />,
     },
     {
         path: "/doctor/medical-records",
-        element: <DoctorPage />,
+        element: <DoctorMedicalRecordsPage />,
     },
     {
         path: "/doctor/prescriptions",
-        element: <DoctorPage />,
+        element: <DoctorPrescriptionPage />,
     },
 ]);
 

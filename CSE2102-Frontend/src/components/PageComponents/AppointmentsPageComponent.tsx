@@ -44,8 +44,6 @@ function AppointmentsPageComponent({
 
     return (
         <>
-            <AdminNavBar />
-
             <SearchBarComponent
                 searchQuery={searchQuery}
                 onSearchChange={(e) => setSearchQuery(e.target.value)}
