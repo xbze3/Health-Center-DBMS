@@ -16,6 +16,7 @@ import DoctorPage from "../public/pages/DoctorPages/DoctorPage.tsx";
 import DoctorPrescriptionPage from "../public/pages/DoctorPages/DoctorPrescriptionsPage.tsx";
 import DoctorAppointmentsPage from "../public/pages/DoctorPages/DoctorAppointmentsPage.tsx";
 import DoctorMedicalRecordsPage from "../public/pages/DoctorPages/DoctorMedicalRecordsPage.tsx";
+import { AuthProvider } from "./misc/AuthContext";
 
 const router = createBrowserRouter([
     {
@@ -52,25 +53,27 @@ const router = createBrowserRouter([
     },
 
     {
-        path: "/doctor",
+        path: "/med",
         element: <DoctorPage />,
     },
     {
-        path: "/doctor/appointments",
+        path: "/med/appointments",
         element: <DoctorAppointmentsPage />,
     },
     {
-        path: "/doctor/medical-records",
+        path: "/med/medical-records",
         element: <DoctorMedicalRecordsPage />,
     },
     {
-        path: "/doctor/prescriptions",
+        path: "/med/prescriptions",
         element: <DoctorPrescriptionPage />,
     },
 ]);
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>
-        <RouterProvider router={router} />
+        <AuthProvider>
+            <RouterProvider router={router} />
+        </AuthProvider>
     </StrictMode>
 );

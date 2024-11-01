@@ -3,8 +3,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import "../../components-css/AdminComponentsCss/AdminNavBar.css";
+import { useAuth } from "../../../src/misc/AuthContext";
 
 function DoctorNavBar() {
+    const { First_Name, Last_Name } = useAuth();
+
     return (
         <Navbar
             bg="secondary"
@@ -14,7 +17,9 @@ function DoctorNavBar() {
         >
             <Container fluid>
                 <Link to={`/admin/`}>
-                    <Navbar.Brand href="#">HCDMS Doctor Panel</Navbar.Brand>
+                    <Navbar.Brand href="#">
+                        {`${First_Name} ${Last_Name}'s`} Dashboard
+                    </Navbar.Brand>
                 </Link>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -23,15 +28,15 @@ function DoctorNavBar() {
                         style={{ maxHeight: "300px" }}
                         navbarScroll
                     >
-                        <Link to={`/doctor/appointments`}>
+                        <Link to={`/med/appointments`}>
                             <Nav.Link href="#action1">Appointments</Nav.Link>
                         </Link>
 
-                        <Link to={`/doctor/medical-records`}>
+                        <Link to={`/med/medical-records`}>
                             <Nav.Link href="#action2">Medical Records</Nav.Link>
                         </Link>
 
-                        <Link to={`/doctor/prescriptions`}>
+                        <Link to={`/med/prescriptions`}>
                             <Nav.Link href="#action3">Prescriptions</Nav.Link>
                         </Link>
                     </Nav>

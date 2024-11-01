@@ -1,5 +1,6 @@
 import "../../components-css/LoginForm.css";
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useAuth } from "../../misc/AuthContext"; // Import the useAuth hook
 
 function LoginForm() {
     const [details, setDetails] = useState({
@@ -8,8 +9,9 @@ function LoginForm() {
         last_name: "",
         password: "",
     });
-
     const [error, setError] = useState<string | null>(null);
+
+    const { setAuthData } = useAuth(); // Destructure setAuthData from context
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -29,7 +31,9 @@ function LoginForm() {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log("Login successful:", data);
+                // Set the Staff_ID, First_Name, and Last_Name in context
+                setAuthData(details.id, details.first_name, details.last_name);
+                forward(data.role);
             } else {
                 const errorData = await response.json();
                 setError(errorData.message || "Login failed");
@@ -39,8 +43,17 @@ function LoginForm() {
         }
     };
 
+    function forward(role: string) {
+        if (role === "Admin") {
+            window.location.href = "http://localhost:5173/admin/";
+        } else if (role === "Doctor" || role === "Nurse") {
+            window.location.href = "http://localhost:5173/med/";
+        }
+    }
+
     const invalidStyle = {
         margin: "20px 0px 0px 0px",
+        color: "red",
     };
 
     return (

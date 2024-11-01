@@ -151,7 +151,7 @@ app.get("/admin-billing-invoices/:value", (re, res) => {
 
 // Doctor Appointments
 
-app.get("/doctor-appointments/:value", (re, res) => {
+app.get("/med-appointments/:value", (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM appointments WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
@@ -160,7 +160,7 @@ app.get("/doctor-appointments/:value", (re, res) => {
     });
 });
 
-app.get("/doctor-appointments/:value1/:value2", (re, res) => {
+app.get("/med-appointments/:value1/:value2", (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
@@ -177,7 +177,7 @@ app.get("/doctor-appointments/:value1/:value2", (re, res) => {
 
 // Doctor Medical Records
 
-app.get("/doctor-medical-records/:value", (re, res) => {
+app.get("/med-medical-records/:value", (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM `medical records` WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
@@ -186,7 +186,7 @@ app.get("/doctor-medical-records/:value", (re, res) => {
     });
 });
 
-app.get("/doctor-appointments/:value1/:value2", (re, res) => {
+app.get("/med-appointments/:value1/:value2", (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
@@ -203,7 +203,7 @@ app.get("/doctor-appointments/:value1/:value2", (re, res) => {
 
 // Doctor Prescriptions
 
-app.get("/doctor-prescriptions/:value", (re, res) => {
+app.get("/med-prescriptions/:value", (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM prescriptions WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
@@ -212,7 +212,7 @@ app.get("/doctor-prescriptions/:value", (re, res) => {
     });
 });
 
-app.get("/doctor-prescriptions/:value1/:value2", (re, res) => {
+app.get("/med-prescriptions/:value1/:value2", (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
