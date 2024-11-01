@@ -18,6 +18,7 @@
     background: #fff;
     padding-bottom: 30px;
     width: 450px;
+    text-align: center;
 }
 
 .header {
@@ -45,7 +46,7 @@
     margin-top: 45px;
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 20px;
 }
 
 .input {

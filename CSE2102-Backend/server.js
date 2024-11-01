@@ -2,12 +2,14 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 
 dotenv.config();
 const db_pass = process.env.DB_PASS;
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -222,6 +224,40 @@ app.get("/doctor-prescriptions/:value1/:value2", (re, res) => {
     db.query(sql, [value1, value2], (err, data) => {
         if (err) return res.json(err);
         return res.json(data);
+    });
+});
+
+// End of Doctor Queries
+
+// Login Queries
+
+app.post("/login", (req, res) => {
+    const { id, first_name, last_name, password } = req.body;
+
+    const credsQuery = `
+        SELECT creds.Staff_ID, creds.First_Name, creds.Last_Name, creds.Password,
+               CASE WHEN creds.Staff_ID = 0 THEN 'Admin' ELSE staff.Role END AS Role
+        FROM creds
+        LEFT JOIN staff ON creds.Staff_ID = staff.Staff_ID
+        WHERE creds.Staff_ID = ? AND creds.First_Name = ? AND creds.Last_Name = ?
+    `;
+
+    db.query(credsQuery, [id, first_name, last_name], (err, results) => {
+        if (err) {
+            res.status(500).json({ message: "Server error", error: err });
+            return;
+        }
+
+        // Check if user is found and password matches
+        if (results.length > 0 && results[0].Password === password) {
+            const userRole = results[0].Role;
+            res.status(200).json({
+                message: "Login successful",
+                role: userRole,
+            });
+        } else {
+            res.status(401).json({ message: "Invalid Credentials" });
+        }
     });
 });
 
