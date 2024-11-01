@@ -13,41 +13,41 @@ function AdminNavBar() {
             className="bg-body-tertiary"
         >
             <Container fluid>
-                <Link to={`/admin/`}>
-                    <Navbar.Brand href="#">HCDMS Admin Panel</Navbar.Brand>
-                </Link>
+                <Navbar.Brand as={Link} to={`/admin/`}>
+                    HCDMS Admin Panel
+                </Navbar.Brand>
+
                 <Navbar.Toggle aria-controls="navbarScroll" />
+
                 <Navbar.Collapse id="navbarScroll">
                     <Nav
                         className="me-auto my-2 my-lg-0"
                         style={{ maxHeight: "300px" }}
                         navbarScroll
                     >
-                        <Link to={`/admin/staff`}>
-                            <Nav.Link href="#action1">Staff</Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/staff`}>
+                            Staff
+                        </Nav.Link>
 
-                        <Link to={`/admin/appointments`}>
-                            <Nav.Link href="#action2">Appointments</Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/appointments`}>
+                            Appointments
+                        </Nav.Link>
 
-                        <Link to={`/admin/medical-records`}>
-                            <Nav.Link href="#action3">Medical Records</Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/medical-records`}>
+                            Medical Records
+                        </Nav.Link>
 
-                        <Link to={`/admin/patients`}>
-                            <Nav.Link href="#action4">Patients</Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/patients`}>
+                            Patients
+                        </Nav.Link>
 
-                        <Link to={`/admin/prescriptions`}>
-                            <Nav.Link href="#action5">Prescriptions</Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/prescriptions`}>
+                            Prescriptions
+                        </Nav.Link>
 
-                        <Link to={`/admin/billing-invoices`}>
-                            <Nav.Link href="#action6">
-                                Billing / Invoices
-                            </Nav.Link>
-                        </Link>
+                        <Nav.Link as={Link} to={`/admin/billing-invoices`}>
+                            Billing / Invoices
+                        </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
