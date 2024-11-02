@@ -54,7 +54,6 @@ app.get("/admin-staff/:value", authenticateToken, (re, res) => {
 // Admin Appointments
 
 app.get("/admin-appointments", authenticateToken, (re, res) => {
-    console.log("hello");
     const sql = "SELECT * FROM appointments;";
     db.query(sql, (err, data) => {
         if (err) return res.status(500).json(err);

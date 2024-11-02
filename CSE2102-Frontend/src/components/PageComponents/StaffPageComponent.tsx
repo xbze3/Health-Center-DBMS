@@ -26,20 +26,53 @@ function StaffPageComponent({
     const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
-        fetch(initialFetchUrl)
-            .then((res) => res.json())
-            .then((data: StaffMember[]) => {
+        const fetchData = async () => {
+            try {
+                const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+                console.log(token);
+                const response = await fetch(initialFetchUrl, {
+                    headers: {
+                        Authorization: `Bearer ${token}`, // Attach token in the Authorization header
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(
+                        `Failed to fetch Staff Member: ${response.statusText}`
+                    );
+                }
+
+                const data: StaffMember[] = await response.json();
                 setData(data);
-            })
-            .catch((err) => console.log(err));
+            } catch (err) {
+                console.error(err); // Log the error
+            }
+        };
+
+        fetchData();
     }, [initialFetchUrl]);
 
-    const handleSearch = (event: React.FormEvent) => {
+    const handleSearch = async (event: React.FormEvent) => {
         event.preventDefault();
-        fetch(`${searchBaseUrl}/${searchQuery}`)
-            .then((res) => res.json())
-            .then((data: StaffMember[]) => setData(data))
-            .catch((err) => console.log(err));
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`${searchBaseUrl}/${searchQuery}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `Failed to search Staff Member: ${response.statusText}`
+                );
+            }
+
+            const data: StaffMember[] = await response.json();
+            setData(data);
+        } catch (err) {
+            console.error(err); // Log the error
+        }
     };
 
     return (
