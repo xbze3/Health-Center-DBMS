@@ -11,7 +11,11 @@ const db_pass = process.env.DB_PASS;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const app = express();
-app.use(cors());
+app.use(
+    cors({
+        allowedHeaders: ["Authorization", "Content-Type"],
+    })
+);
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
@@ -50,6 +54,7 @@ app.get("/admin-staff/:value", authenticateToken, (re, res) => {
 // Admin Appointments
 
 app.get("/admin-appointments", authenticateToken, (re, res) => {
+    console.log("hello");
     const sql = "SELECT * FROM appointments;";
     db.query(sql, (err, data) => {
         if (err) return res.status(500).json(err);
@@ -234,7 +239,7 @@ app.get("/med-prescriptions/:value1/:value2", authenticateToken, (re, res) => {
 
 // Login Queries
 
-app.post("/login", authenticateToken, (req, res) => {
+app.post("/login", (req, res) => {
     const { id, first_name, last_name, password } = req.body;
 
     const credsQuery = `
