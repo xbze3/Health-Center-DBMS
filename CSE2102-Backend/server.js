@@ -3,9 +3,12 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const jwt = require("jsonwebtoken");
+const authenticateToken = require("./authMiddleware");
 
 dotenv.config();
 const db_pass = process.env.DB_PASS;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const app = express();
 app.use(cors());
@@ -26,121 +29,121 @@ app.get("/", (re, res) => {
 
 // Admin Staff
 
-app.get("/admin-staff", (re, res) => {
+app.get("/admin-staff", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM staff;";
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-staff/:value", (re, res) => {
+app.get("/admin-staff/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM staff WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Admin Appointments
 
-app.get("/admin-appointments", (re, res) => {
+app.get("/admin-appointments", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM appointments;";
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-appointments/:value", (re, res) => {
+app.get("/admin-appointments/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM appointments WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Admin Medical Records
 
-app.get("/admin-medical-records", (re, res) => {
+app.get("/admin-medical-records", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM `medical records`;";
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-medical-records/:value", (re, res) => {
+app.get("/admin-medical-records/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM `medical records` WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Admin Patients
 
-app.get("/admin-patients", (re, res) => {
+app.get("/admin-patients", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM patients;";
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-patients/:value", (re, res) => {
+app.get("/admin-patients/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM patients WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Admin Prescriptions
 
-app.get("/admin-prescriptions", (re, res) => {
+app.get("/admin-prescriptions", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM prescriptions;";
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-prescriptions/:value", (re, res) => {
+app.get("/admin-prescriptions/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM prescriptions WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Admin Billing and Invoices
 
-app.get("/admin-billing-invoices", (re, res) => {
+app.get("/admin-billing-invoices", authenticateToken, (re, res) => {
     const sql = "SELECT * FROM `billing/invoices`";
 
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/admin-billing-invoices/:value", (re, res) => {
+app.get("/admin-billing-invoices/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM `billing/invoices` WHERE " + value;
 
     db.query(sql, [value], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
@@ -151,16 +154,16 @@ app.get("/admin-billing-invoices/:value", (re, res) => {
 
 // Doctor Appointments
 
-app.get("/med-appointments/:value", (re, res) => {
+app.get("/med-appointments/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM appointments WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/med-appointments/:value1/:value2", (re, res) => {
+app.get("/med-appointments/:value1/:value2", authenticateToken, (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
@@ -170,23 +173,23 @@ app.get("/med-appointments/:value1/:value2", (re, res) => {
         value2;
 
     db.query(sql, [value1, value2], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Doctor Medical Records
 
-app.get("/med-medical-records/:value", (re, res) => {
+app.get("/med-medical-records/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM `medical records` WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/med-appointments/:value1/:value2", (re, res) => {
+app.get("/med-appointments/:value1/:value2", authenticateToken, (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
@@ -196,23 +199,23 @@ app.get("/med-appointments/:value1/:value2", (re, res) => {
         value2;
 
     db.query(sql, [value1, value2], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
 // Doctor Prescriptions
 
-app.get("/med-prescriptions/:value", (re, res) => {
+app.get("/med-prescriptions/:value", authenticateToken, (re, res) => {
     const { value } = re.params;
     const sql = "SELECT * FROM prescriptions WHERE Staff_ID = " + value;
     db.query(sql, (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
 
-app.get("/med-prescriptions/:value1/:value2", (re, res) => {
+app.get("/med-prescriptions/:value1/:value2", authenticateToken, (re, res) => {
     const { value1 } = re.params;
     const { value2 } = re.params;
     const sql =
@@ -222,7 +225,7 @@ app.get("/med-prescriptions/:value1/:value2", (re, res) => {
         value2;
 
     db.query(sql, [value1, value2], (err, data) => {
-        if (err) return res.json(err);
+        if (err) return res.status(500).json(err);
         return res.json(data);
     });
 });
@@ -231,7 +234,7 @@ app.get("/med-prescriptions/:value1/:value2", (re, res) => {
 
 // Login Queries
 
-app.post("/login", (req, res) => {
+app.post("/login", authenticateToken, (req, res) => {
     const { id, first_name, last_name, password } = req.body;
 
     const credsQuery = `
@@ -250,9 +253,19 @@ app.post("/login", (req, res) => {
 
         // Check if user is found and password matches
         if (results.length > 0 && results[0].Password === password) {
-            const userRole = results[0].Role;
+            const user = results[0];
+            const userRole = user.Role;
+
+            // Generate a JWT token
+            const token = jwt.sign(
+                { id: user.Staff_ID, first_name: user.First_Name },
+                SECRET_KEY,
+                { expiresIn: "1h" } // Token will expire in 1 hour
+            );
+
             res.status(200).json({
                 message: "Login successful",
+                token: token, // Include the token in the response
                 role: userRole,
             });
         } else {
