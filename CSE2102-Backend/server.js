@@ -4,7 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
-const authenticateToken = require("./authMiddleware");
+const authenticateToken = require("./utils/authMiddleware");
 
 dotenv.config();
 const db_pass = process.env.DB_PASS;
