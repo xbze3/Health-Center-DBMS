@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
 import ListItemComponent from "../WebItemComponents/ListGroupComponent";
+import Alert from "../../components/WebItemComponents/Alert";
 
 interface Patients {
     Patient_ID: number;
@@ -25,12 +26,12 @@ function PatientsPageComponent({
 }: PatientsProps) {
     const [data, setData] = useState<Patients[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-                console.log(token);
                 const response = await fetch(initialFetchUrl, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token in the Authorization header
@@ -38,9 +39,9 @@ function PatientsPageComponent({
                 });
 
                 if (!response.ok) {
-                    throw new Error(
-                        `Failed to fetch Patients: ${response.statusText}`
-                    );
+                    if (response.status == 403) {
+                        setError(true);
+                    } else `Failed to fetch Patients: ${response.statusText}`;
                 }
 
                 const data: Patients[] = await response.json();
@@ -83,6 +84,8 @@ function PatientsPageComponent({
                 onSearchChange={(e) => setSearchQuery(e.target.value)}
                 onSearchSubmit={handleSearch}
             />
+
+            {error && <Alert />}
 
             <ListGroup as="ul">
                 {Array.isArray(data) ? (

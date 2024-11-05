@@ -107,3 +107,8 @@
 .submit:hover {
     background-color: rgb(77, 86, 167);
 }
+
+.error-message {
+    margin: 20px 0px -20px 0px;
+    color: red;
+}

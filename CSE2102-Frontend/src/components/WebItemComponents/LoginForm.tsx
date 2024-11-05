@@ -32,6 +32,7 @@ function LoginForm() {
             if (response.ok) {
                 const data = await response.json();
                 // Set the Staff_ID, First_Name, and Last_Name in context
+
                 setAuthData(details.id, details.first_name, details.last_name);
                 localStorage.setItem("token", data.token);
                 forward(data.role);
@@ -52,11 +53,6 @@ function LoginForm() {
         }
     }
 
-    const invalidStyle = {
-        margin: "20px 0px 0px 0px",
-        color: "red",
-    };
-
     return (
         <div id="body">
             <div className="container">
@@ -65,11 +61,7 @@ function LoginForm() {
                     <div className="underline"></div>
                 </div>
 
-                {error && (
-                    <div className="error-message" style={invalidStyle}>
-                        {error}
-                    </div>
-                )}
+                {error && <div className="error-message">{error}</div>}
 
                 <form className="inputs" onSubmit={handleSubmit}>
                     <div className="input">

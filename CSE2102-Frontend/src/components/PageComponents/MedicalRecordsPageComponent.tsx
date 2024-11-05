@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
 import ListItemComponent from "../WebItemComponents/ListGroupComponent";
+import Alert from "../../components/WebItemComponents/Alert";
 
 interface MedicalRecords {
     Record_ID: number;
@@ -24,12 +25,12 @@ function MedicalRecordsPageComponent({
 }: MedicalRecordsPageProps) {
     const [data, setData] = useState<MedicalRecords[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-                console.log(token);
                 const response = await fetch(initialFetchUrl, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token in the Authorization header
@@ -37,9 +38,10 @@ function MedicalRecordsPageComponent({
                 });
 
                 if (!response.ok) {
-                    throw new Error(
-                        `Failed to fetch Medical Records: ${response.statusText}`
-                    );
+                    if (response.status == 403) {
+                        setError(true);
+                    } else
+                        `Failed to fetch Medical Records: ${response.statusText}`;
                 }
 
                 const data: MedicalRecords[] = await response.json();
@@ -82,6 +84,8 @@ function MedicalRecordsPageComponent({
                 onSearchChange={(e) => setSearchQuery(e.target.value)}
                 onSearchSubmit={handleSearch}
             />
+
+            {error && <Alert />}
 
             <ListGroup as="ul">
                 {Array.isArray(data) ? (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import SearchBarComponent from "../WebItemComponents/SearchBarComponent";
 import ListItemComponent from "../WebItemComponents/ListGroupComponent";
+import Alert from "../../components/WebItemComponents/Alert";
 
 interface BillingInvoices {
     Invoice_ID: number;
@@ -22,12 +23,12 @@ function BillingInvoicesPageComponent({
 }: BillingInvoicesPageProps) {
     const [data, setData] = useState<BillingInvoices[]>([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem("token"); // Retrieve the token from localStorage
-                console.log(token);
                 const response = await fetch(initialFetchUrl, {
                     headers: {
                         Authorization: `Bearer ${token}`, // Attach token in the Authorization header
@@ -35,9 +36,10 @@ function BillingInvoicesPageComponent({
                 });
 
                 if (!response.ok) {
-                    throw new Error(
-                        `Failed to fetch appointments: ${response.statusText}`
-                    );
+                    if (response.status == 403) {
+                        setError(true);
+                    } else
+                        `Failed to fetch Billing / Invoices: ${response.statusText}`;
                 }
 
                 const data: BillingInvoices[] = await response.json();
@@ -80,6 +82,8 @@ function BillingInvoicesPageComponent({
                 onSearchChange={(e) => setSearchQuery(e.target.value)}
                 onSearchSubmit={handleSearch}
             />
+
+            {error && <Alert />}
 
             <ListGroup as="ul">
                 {Array.isArray(data) ? (
