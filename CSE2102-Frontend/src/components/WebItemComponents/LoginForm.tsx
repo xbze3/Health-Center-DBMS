@@ -11,7 +11,7 @@ function LoginForm() {
     });
     const [error, setError] = useState<string | null>(null);
 
-    const { setAuthData } = useAuth(); // Destructure setAuthData from context
+    const { setAuthData } = useAuth();
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;

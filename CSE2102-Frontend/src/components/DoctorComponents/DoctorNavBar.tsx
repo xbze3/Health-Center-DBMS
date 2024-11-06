@@ -3,11 +3,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import "../../components-css/AdminComponentsCss/AdminNavBar.css";
-import { useAuth } from "../../../src/misc/AuthContext";
 
 function DoctorNavBar() {
-    const { First_Name, Last_Name } = useAuth();
-
     return (
         <Navbar
             bg="secondary"
@@ -17,7 +14,7 @@ function DoctorNavBar() {
         >
             <Container fluid>
                 <Navbar.Brand as={Link} to={`/med/`}>
-                    {`${First_Name} ${Last_Name}'s`} Dashboard
+                    Dashboard
                 </Navbar.Brand>
 
                 <Navbar.Toggle aria-controls="navbarScroll" />

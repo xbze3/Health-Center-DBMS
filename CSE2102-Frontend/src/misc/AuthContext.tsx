@@ -1,4 +1,3 @@
-// AuthContext.tsx
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 // Define the types for context
@@ -20,16 +19,10 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     children,
 }) => {
-    // Initialize with values from local storage
-    const [Staff_ID, setStaff_ID] = useState<string | null>(
-        localStorage.getItem("staffId")
-    );
-    const [First_Name, setFirst_Name] = useState<string | null>(
-        localStorage.getItem("firstName")
-    );
-    const [Last_Name, setLast_Name] = useState<string | null>(
-        localStorage.getItem("lastName")
-    );
+    // Initialize state without local storage
+    const [Staff_ID, setStaff_ID] = useState<string | null>("Sumn");
+    const [First_Name, setFirst_Name] = useState<string | null>("Sumn1");
+    const [Last_Name, setLast_Name] = useState<string | null>("Sumn2");
 
     // Function to set auth data
     const setAuthData = (
@@ -40,10 +33,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
         setStaff_ID(Staff_ID);
         setFirst_Name(First_Name);
         setLast_Name(Last_Name);
-        // Store in local storage
-        localStorage.setItem("staffId", Staff_ID);
-        localStorage.setItem("firstName", First_Name);
-        localStorage.setItem("lastName", Last_Name);
     };
 
     return (

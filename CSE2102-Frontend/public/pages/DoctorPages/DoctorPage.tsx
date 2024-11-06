@@ -4,7 +4,6 @@ function DoctorPage() {
     return (
         <>
             <DoctorNavBar />
-            Doctor Page
         </>
     );
 }
