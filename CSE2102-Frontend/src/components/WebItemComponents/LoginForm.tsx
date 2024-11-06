@@ -1,6 +1,5 @@
 import "../../components-css/LoginForm.css";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { useAuth } from "../../misc/AuthContext"; // Import the useAuth hook
 
 function LoginForm() {
     const [details, setDetails] = useState({
@@ -10,8 +9,6 @@ function LoginForm() {
         password: "",
     });
     const [error, setError] = useState<string | null>(null);
-
-    const { setAuthData } = useAuth();
 
     const handleCheck = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -33,7 +30,6 @@ function LoginForm() {
                 const data = await response.json();
                 // Set the Staff_ID, First_Name, and Last_Name in context
 
-                setAuthData(details.id, details.first_name, details.last_name);
                 localStorage.setItem("token", data.token);
                 forward(data.role);
             } else {

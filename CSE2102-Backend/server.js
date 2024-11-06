@@ -313,8 +313,8 @@ app.get("/med-prescriptions/:value1", authenticateToken, (re, res) => {
 
 // Login Queries
 
-app.post("/login", (req, res) => {
-    const { id, first_name, last_name, password } = req.body;
+app.post("/login", (re, res) => {
+    const { id, first_name, last_name, password } = re.body;
 
     const credsQuery = `
         SELECT creds.Staff_ID, creds.First_Name, creds.Last_Name, creds.Password,
