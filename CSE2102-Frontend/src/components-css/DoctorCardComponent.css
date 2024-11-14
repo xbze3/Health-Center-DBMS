@@ -1,4 +1,4 @@
-.centered-container {
+.Doctor-centered-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6,7 +6,7 @@
     overflow: hidden; /* Prevent scrolling */
 }
 
-.card-row {
+.Doctor-card-row {
     display: flex;
     gap: 3rem;
     justify-content: center;
@@ -14,16 +14,32 @@
     max-width: 100%; /* Ensure the cards fit within the screen */
 }
 
-.card-col {
+.Doctor-card-col {
     flex: 1;
     max-width: 350px;
-    margin-top: 0px; /* Adjust the value to move the cards upwards slightly */
+    margin-top: -10px; /* Adjust the value to move the cards upwards slightly */
     max-height: 100%; /* Prevent the cards from exceeding the container's height */
     display: flex;
     justify-content: center;
 }
 
-.card {
+.Doctor-card {
     max-height: 100%; /* Make sure the card fits in the available space */
     height: auto;
+    display: flex;
+    align-items: center;
+    width: 40vw;
+    background-color: rgb(205, 205, 205);
+    border: none;
+}
+
+.Doctor-cardIMG {
+    width: 250px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.Doctor-card-body {
+    text-align: center;
+    margin-bottom: 10px;
 }

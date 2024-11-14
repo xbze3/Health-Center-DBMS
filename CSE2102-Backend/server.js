@@ -218,6 +218,50 @@ app.get("/admin-billing-invoices/:value", authenticateToken, (re, res) => {
     }
 });
 
+// Add this route to the Express app
+
+app.get("/api/record-counts", authenticateToken, (req, res) => {
+    const staffId = req.user.id;
+
+    if (staffId !== 0) {
+        return res.status(403).json({ message: "Forbidden: Access is denied" });
+    }
+
+    const queries = {
+        appointments: "SELECT COUNT(*) AS count FROM appointments",
+        medicalRecords: "SELECT COUNT(*) AS count FROM `medical records`",
+        prescriptions: "SELECT COUNT(*) AS count FROM prescriptions",
+        staff: "SELECT COUNT(*) AS count FROM staff",
+        patients: "SELECT COUNT(*) AS count FROM patients",
+        billingInvoices: "SELECT COUNT(*) AS count FROM `billing/invoices`",
+    };
+
+    const results = {};
+
+    // Query each table and send the response once all queries have completed
+    Promise.all(
+        Object.keys(queries).map(
+            (key) =>
+                new Promise((resolve, reject) => {
+                    db.query(queries[key], (err, data) => {
+                        if (err) reject(err);
+                        results[key] = data[0].count;
+                        resolve();
+                    });
+                })
+        )
+    )
+        .then(() => {
+            res.json(results); // Send all counts as a JSON response
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Error fetching counts",
+                error: err,
+            });
+        });
+});
+
 // End of Admin Queries
 
 // Doctor Queries
@@ -308,6 +352,49 @@ app.get("/med-prescriptions/:value1", authenticateToken, (re, res) => {
         if (data.length === 0) data = "None";
         return res.json(data);
     });
+});
+
+// Add this route to the Express app
+
+app.get("/api/doctor-record-counts", authenticateToken, (re, res) => {
+    const staffId = re.user.id; // Changed to staffId to match the field
+
+    const queries = {
+        appointments:
+            "SELECT COUNT(*) AS count FROM appointments WHERE Staff_ID = ?",
+        medicalRecords:
+            "SELECT COUNT(*) AS count FROM `medical records` WHERE Staff_ID = ?",
+        prescriptions:
+            "SELECT COUNT(*) AS count FROM prescriptions WHERE Staff_ID = ?",
+    };
+
+    const results = {};
+
+    Promise.all(
+        Object.keys(queries).map(
+            (key) =>
+                new Promise((resolve, reject) => {
+                    db.query(queries[key], [staffId], (err, data) => {
+                        if (err) return reject(err);
+                        if (Array.isArray(data) && data.length > 0) {
+                            results[key] = data[0].count;
+                        } else {
+                            results[key] = 0; // Set to 0 if no records found
+                        }
+                        resolve();
+                    });
+                })
+        )
+    )
+        .then(() => {
+            res.json(results); // Return the counts for the staff
+        })
+        .catch((err) => {
+            res.status(500).json({
+                message: "Error fetching counts",
+                error: err,
+            });
+        });
 });
 
 // End of Doctor Queries

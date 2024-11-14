@@ -1,11 +1,11 @@
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
-import CardScreenComponent from "../../../src/components/WebItemComponents/CardScreenComponent";
+import AdminCardScreenComponent from "../../../src/components/AdminComponents/AdminCardScreenComponent";
 
 function AdminPage() {
     return (
         <>
             <AdminNavBar />
-            <CardScreenComponent />
+            <AdminCardScreenComponent />
         </>
     );
 }

@@ -1,0 +1,68 @@
+/* Parent container holding both left and right centered containers */
+.Admin-centered-container-wrapper {
+    display: flex;
+    justify-content: space-between; /* Distribute space between left and right containers */
+    gap: 1rem; /* Optional: Adds space between left and right containers */
+    width: 100%; /* Ensure it takes the full width */
+    margin-top: 10px;
+}
+
+/* Left container */
+.Admin-centered-container-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    width: 50%; /* Adjust width to be 50% of the parent */
+}
+
+/* Right container */
+.Admin-centered-container-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+    width: 50%; /* Adjust width to be 50% of the parent */
+}
+
+/* Card rows for left and right */
+.Admin-card-row-left,
+.Admin-card-row-right {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically */
+    gap: 1rem;
+    width: 90%; /* Ensure they take full width of the container */
+}
+
+/* Card column styling */
+.Admin-card-col {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Card layout with image on the left and content on the right */
+.Admin-card {
+    display: flex;
+    flex-direction: row; /* Display image on the left and content on the right */
+    align-items: center;
+    width: 100%; /* Ensure the card takes the full width */
+    background-color: rgb(205, 205, 205);
+    border: none;
+    overflow: hidden;
+    height: 165px;
+}
+
+/* Image styling */
+.Admin-cardIMG {
+    width: 110px; /* Set the image width */
+    height: auto;
+    object-fit: cover;
+    margin: 15px 30px 15px 40px; /* Remove top/bottom margins */
+}
+
+/* Card body styling */
+.Admin-card-body {
+    flex: 1; /* Allow the card body to take up remaining space */
+    padding: 1rem;
+    text-align: left;
+}
