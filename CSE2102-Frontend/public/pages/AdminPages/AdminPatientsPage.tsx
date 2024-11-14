@@ -1,14 +1,16 @@
 import PatientsPageComponent from "../../../src/components/PageComponents/PatientsPageComponent";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 
+const PATIENTS_ROUTE = import.meta.env.VITE_ADMIN_GET_PATIENTS || "";
+
 function AdminPatientsPage() {
     return (
         <>
             <AdminNavBar />
 
             <PatientsPageComponent
-                initialFetchUrl="http://localhost:8081/admin-patients"
-                searchBaseUrl="http://localhost:8081/admin-patients"
+                initialFetchUrl={PATIENTS_ROUTE}
+                searchBaseUrl={PATIENTS_ROUTE}
             />
         </>
     );

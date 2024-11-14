@@ -1,14 +1,16 @@
 import AppointmentsPageComponent from "../../../src/components/PageComponents/AppointmentsPageComponent";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 
+const APPOINTMENTS_ROUTE = import.meta.env.VITE_ADMIN_GET_APPOINTMENTS || "";
+
 function AdminAppointmentsPage() {
     return (
         <>
             <AdminNavBar />
 
             <AppointmentsPageComponent
-                initialFetchUrl="http://localhost:8081/admin-appointments"
-                searchBaseUrl="http://localhost:8081/admin-appointments"
+                initialFetchUrl={APPOINTMENTS_ROUTE}
+                searchBaseUrl={APPOINTMENTS_ROUTE}
             />
         </>
     );

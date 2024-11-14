@@ -1,14 +1,16 @@
 import StaffPageComponent from "../../../src/components/PageComponents/StaffPageComponent";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 
+const STAFF_ROUTE = import.meta.env.VITE_ADMIN_GET_STAFF || "";
+
 function AdminStaffPage() {
     return (
         <>
             <AdminNavBar />
 
             <StaffPageComponent
-                initialFetchUrl="http://localhost:8081/admin-staff"
-                searchBaseUrl="http://localhost:8081/admin-staff"
+                initialFetchUrl={STAFF_ROUTE}
+                searchBaseUrl={STAFF_ROUTE}
             />
         </>
     );
