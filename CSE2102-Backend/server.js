@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql2");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const authenticateToken = require("./utils/authMiddleware");
@@ -324,29 +325,38 @@ app.post("/login", (re, res) => {
         WHERE creds.Staff_ID = ? AND creds.First_Name = ? AND creds.Last_Name = ?
     `;
 
-    db.query(credsQuery, [id, first_name, last_name], (err, results) => {
+    db.query(credsQuery, [id, first_name, last_name], async (err, results) => {
         if (err) {
             res.status(500).json({ message: "Server error", error: err });
             return;
         }
 
-        // Check if user is found and password matches
-        if (results.length > 0 && results[0].Password === password) {
-            const user = results[0];
-            const userRole = user.Role;
+        // Check if user is found and compare hashed passwords
+        if (results.length > 0) {
+            const storedPassword = results[0].Password;
 
-            // Generate a JWT token
-            const token = jwt.sign(
-                { id: user.Staff_ID, first_name: user.First_Name },
-                SECRET_KEY,
-                { expiresIn: "1h" } // Token will expire in 1 hour
-            );
+            // Compare the hashed password
+            const isMatch = await bcrypt.compare(password, storedPassword);
 
-            res.status(200).json({
-                message: "Login successful",
-                token: token, // Include the token in the response
-                role: userRole,
-            });
+            if (isMatch) {
+                const user = results[0];
+                const userRole = user.Role;
+
+                // Generate a JWT token
+                const token = jwt.sign(
+                    { id: user.Staff_ID, first_name: user.First_Name },
+                    SECRET_KEY,
+                    { expiresIn: "1h" } // Token will expire in 1 hour
+                );
+
+                res.status(200).json({
+                    message: "Login successful",
+                    token: token, // Include the token in the response
+                    role: userRole,
+                });
+            } else {
+                res.status(401).json({ message: "Invalid Credentials" });
+            }
         } else {
             res.status(401).json({ message: "Invalid Credentials" });
         }
