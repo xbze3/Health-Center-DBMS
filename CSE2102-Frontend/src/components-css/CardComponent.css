@@ -1,0 +1,29 @@
+.centered-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.card-row {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap; /* Allow the cards to wrap on smaller screens */
+    max-width: 100%; /* Ensure the cards fit within the screen */
+}
+
+.card-col {
+    flex: 1;
+    max-width: 350px;
+    margin-top: 0px; /* Adjust the value to move the cards upwards slightly */
+    max-height: 100%; /* Prevent the cards from exceeding the container's height */
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    max-height: 100%; /* Make sure the card fits in the available space */
+    height: auto;
+}
