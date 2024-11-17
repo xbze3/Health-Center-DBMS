@@ -9,6 +9,10 @@ const authenticateToken = require("./utils/authMiddleware");
 
 dotenv.config();
 const db_pass = process.env.DB_PASS;
+const db_user = process.env.DB_USER;
+const db_host = process.env.DB_HOST;
+const db_port = process.env.DB_PORT;
+const db_name = process.env.DB_NAME;
 const SECRET_KEY = process.env.SECRET_KEY;
 
 const app = express();
@@ -20,10 +24,20 @@ app.use(
 app.use(bodyParser.json());
 
 const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
+    host: db_host,
+    port: db_port,
+    user: db_user,
     password: db_pass,
-    database: "health_center_database",
+    database: db_name,
+});
+
+db.connect((err) => {
+    if (err) {
+        console.error("Database connection failed:", err.stack);
+        process.exit(1); // Exiting the process if DB connection fails
+    } else {
+        console.log("Connected to database!");
+    }
 });
 
 app.get("/", (re, res) => {
@@ -450,6 +464,6 @@ app.post("/login", (re, res) => {
     });
 });
 
-app.listen(8081, () => {
-    console.log("Listening...");
+app.listen(8081, "0.0.0.0", () => {
+    console.log("Listening on port 8081...");
 });

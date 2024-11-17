@@ -1,0 +1,48 @@
+services:
+    frontend:
+        build:
+            context: ./CSE2102-Frontend
+            dockerfile: Dockerfile
+        ports:
+            - "5173:5173" # Maps the Vite frontend's 5173 port to the host
+        env_file:
+            - ./CSE2102-Frontend/.env # Reference the .env file in the frontend directory
+        volumes:
+            - ./CSE2102-Frontend:/app # Syncs your local frontend code with the container
+            - /app/node_modules # Prevents overriding node_modules
+        depends_on:
+            - backend
+
+    backend:
+        build:
+            context: ./CSE2102-Backend
+            dockerfile: Dockerfile
+        ports:
+            - "8081:8081" # Maps the backend's 8081 port to the host
+        env_file:
+            - ./CSE2102-Backend/.env # Reference the .env file in the backend directory
+        volumes:
+            - ./CSE2102-Backend:/app # Syncs your local backend code with the container
+            - /app/node_modules
+        depends_on:
+            db:
+                condition: service_healthy
+
+    db:
+        image: mysql:8.0
+        container_name: mysql_db
+        ports:
+            - "3307:3306" # Maps the host's 3307 port to MySQL's internal 3306 port
+        env_file:
+            - ./db/.env # Reference the .env file in the db directory
+        volumes:
+            - db_data:/var/lib/mysql # Persistent storage for the database
+            - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql # Seed data on container creation
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+volumes:
+    db_data:
