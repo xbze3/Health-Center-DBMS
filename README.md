@@ -1,4 +1,4 @@
-# CSE2102 Project
+# CSE2102 Project | Docker + ReactJS + ExpressJS + MySQL
 
 This project consists of a full-stack Health Center Database Management System developed with Docker, React (Vite), Express, and MySQL. It includes a frontend that communicates with a backend API and a MySQL database for persistent data storage.
 
