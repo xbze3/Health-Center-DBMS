@@ -5,17 +5,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import "./index.css";
 import App from "./App.tsx";
-import AdminPage from "../public/pages/AdminPages/AdminPage.tsx";
-import AdminStaffPage from "../public/pages/AdminPages/AdminStaffPage.tsx";
-import AdminAppointmentsPage from "../public/pages/AdminPages/AdminAppointmentsPage.tsx";
-import AdminMedicalRecordsPage from "../public/pages/AdminPages/AdminMedicalRecordsPage.tsx";
-import AdminPatientsPage from "../public/pages/AdminPages/AdminPatientsPage.tsx";
-import AdminPrescriptionsPage from "../public/pages/AdminPages/AdminPrescriptionsPage.tsx";
-import AdminBillingInvoicesPage from "../public/pages/AdminPages/AdminBillingInvoicesPage.tsx";
-import DoctorPage from "../public/pages/DoctorPages/DoctorPage.tsx";
-import DoctorPrescriptionPage from "../public/pages/DoctorPages/DoctorPrescriptionsPage.tsx";
-import DoctorAppointmentsPage from "../public/pages/DoctorPages/DoctorAppointmentsPage.tsx";
-import DoctorMedicalRecordsPage from "../public/pages/DoctorPages/DoctorMedicalRecordsPage.tsx";
+import AdminPage from "../src/pages/AdminPages/AdminPage.tsx";
+import AdminStaffPage from "../src/pages/AdminPages/AdminStaffPage.tsx";
+import AdminAppointmentsPage from "../src/pages/AdminPages/AdminAppointmentsPage.tsx";
+import AdminMedicalRecordsPage from "../src/pages/AdminPages/AdminMedicalRecordsPage.tsx";
+import AdminPatientsPage from "../src/pages/AdminPages/AdminPatientsPage.tsx";
+import AdminPrescriptionsPage from "../src/pages/AdminPages/AdminPrescriptionsPage.tsx";
+import AdminBillingInvoicesPage from "../src/pages/AdminPages/AdminBillingInvoicesPage.tsx";
+import DoctorPage from "../src/pages/DoctorPages/DoctorPage.tsx";
+import DoctorPrescriptionPage from "../src/pages/DoctorPages/DoctorPrescriptionsPage.tsx";
+import DoctorAppointmentsPage from "../src/pages/DoctorPages/DoctorAppointmentsPage.tsx";
+import DoctorMedicalRecordsPage from "../src/pages/DoctorPages/DoctorMedicalRecordsPage.tsx";
 
 const router = createBrowserRouter([
     {
