@@ -1,6 +1,6 @@
 # CSE2102 Project
 
-This project consists of a full-stack application developed with Docker, React (Vite), Express, and MySQL. It includes a frontend that communicates with a backend API and a MySQL database for persistent data storage.
+This project consists of a full-stack Health Center Database Management System developed with Docker, React (Vite), Express, and MySQL. It includes a frontend that communicates with a backend API and a MySQL database for persistent data storage.
 
 ## Table of Contents
 
@@ -27,7 +27,7 @@ This project consists of a full-stack application with the following features:
 
 ### Purpose:
 
-The application allows users to interact with a web interface for various functionalities, with data stored in a MySQL database. The backend handles the business logic and serves data to the frontend via an API.
+The application allows users to interact with Health Center Database Management System, with data stored in a MySQL database. The backend handles the business logic and serves data to the frontend via an API.
 
 ## Tech Stack
 
