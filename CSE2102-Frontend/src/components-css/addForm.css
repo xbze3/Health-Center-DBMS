@@ -1,0 +1,18 @@
+.addForm {
+    position: fixed;
+    width: 850px;
+    top: 50%;
+    left: 50%; /* Horizontally centers the form */
+    transform: translate(-50%, -50%); /* Ensures exact centering */
+    z-index: 1000; /* Places it above all other content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+    border-radius: 8px; /* Rounds the edges */
+    background-color: rgb(211, 211, 211);
+}
+
+.addFormDiv {
+    margin: 20px;
+}
+
+ /* Positions the form relative to the viewport */
+   /* Vertically centers the form */
