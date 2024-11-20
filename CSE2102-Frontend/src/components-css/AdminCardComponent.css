@@ -66,3 +66,34 @@
     padding: 1rem;
     text-align: left;
 }
+
+@media (max-width: 950px) {
+    .Admin-centered-container-wrapper {
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        margin-top: 10px;
+        flex-wrap: wrap; /* Allow wrapping */
+    }
+
+    .Admin-centered-container-left,
+    .Admin-centered-container-right {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        flex: 1 1 49%; /* Flex-grow, flex-shrink, and basis for responsive scaling */
+        min-width: 300px; /* Set a minimum width */
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .Admin-card-row-left,
+    .Admin-card-row-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        margin-left: -5px;
+    }
+}

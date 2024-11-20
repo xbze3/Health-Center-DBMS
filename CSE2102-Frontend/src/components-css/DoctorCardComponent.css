@@ -2,29 +2,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 90vh;
-    overflow: hidden; /* Prevent scrolling */
+    margin-top: 40px;
 }
 
 .Doctor-card-row {
     display: flex;
     gap: 3rem;
     justify-content: center;
-    flex-wrap: wrap; /* Allow the cards to wrap on smaller screens */
-    max-width: 100%; /* Ensure the cards fit within the screen */
+    flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .Doctor-card-col {
     flex: 1;
     max-width: 350px;
-    margin-top: -10px; /* Adjust the value to move the cards upwards slightly */
-    max-height: 100%; /* Prevent the cards from exceeding the container's height */
+    margin-top: -10px;
     display: flex;
     justify-content: center;
 }
 
 .Doctor-card {
-    max-height: 100%; /* Make sure the card fits in the available space */
     height: auto;
     display: flex;
     align-items: center;
@@ -42,4 +39,20 @@
 .Doctor-card-body {
     text-align: center;
     margin-bottom: 10px;
+}
+
+@media (max-width: 1146px) {
+    .Doctor-card {
+        width: 80vw;
+    }
+}
+
+@media (max-width: 600px) {
+    .Doctor-card {
+        width: 90vw;
+    }
+
+    .Doctor-card-row {
+        gap: 1rem;
+    }
 }
