@@ -92,7 +92,7 @@ function PatientAdditionForm() {
                                     >
                                         <Form.Label>Date of Birth</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="date"
                                             name="date_of_birth"
                                             value={values.date_of_birth}
                                             onChange={handleChange}
@@ -144,9 +144,9 @@ function PatientAdditionForm() {
                                         md="3"
                                         controlId="validationFormik04"
                                     >
-                                        <Form.Label>address</Form.Label>
+                                        <Form.Label>Address</Form.Label>
                                         <Form.Control
-                                            type="address"
+                                            type="text"
                                             name="address"
                                             value={values.address}
                                             onChange={handleChange}
