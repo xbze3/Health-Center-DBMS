@@ -59,7 +59,6 @@ function StaffAdditionForm() {
                                             type="text"
                                             name="first_name"
                                             value={values.first_name}
-                                            placeholder="E.g. 1"
                                             onChange={handleChange}
                                             isInvalid={!!errors.first_name}
                                         />
@@ -77,7 +76,6 @@ function StaffAdditionForm() {
                                             type="text"
                                             name="last_name"
                                             value={values.last_name}
-                                            placeholder="E.g. 23"
                                             onChange={handleChange}
                                             isInvalid={!!errors.last_name}
                                         />
@@ -95,7 +93,6 @@ function StaffAdditionForm() {
                                             type="text"
                                             name="role"
                                             value={values.role}
-                                            placeholder="role"
                                             onChange={handleChange}
                                             isInvalid={!!errors.role}
                                         />
@@ -147,7 +144,7 @@ function StaffAdditionForm() {
                                     >
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="email"
                                             name="email"
                                             value={values.email}
                                             onChange={handleChange}
