@@ -1,0 +1,11 @@
+.addFormButton {
+    position: fixed;
+    top: 90%;
+    left: 90%; /* Horizontally centers the form */
+    translate: (-90, -90);
+    z-index: 1000; /* Places it above all other content */
+}
+
+.submitRecordButton {
+    margin-top: 10px;
+}

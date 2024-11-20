@@ -14,5 +14,10 @@
     margin: 20px;
 }
 
- /* Positions the form relative to the viewport */
-   /* Vertically centers the form */
+.showAddBox {
+    display: block;
+}
+
+.hideAddBox {
+    display: none;
+}
