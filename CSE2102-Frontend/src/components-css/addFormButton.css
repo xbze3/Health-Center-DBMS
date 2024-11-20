@@ -8,7 +8,7 @@
 
 @media (max-width: 600px) {
     .addFormButton {
-        bottom: 1%; /* Adjust for smaller screens */
-        right: 5%;
+        bottom: 5%; /* Adjust for smaller screens */
+        right: 2%;
     }
 }
