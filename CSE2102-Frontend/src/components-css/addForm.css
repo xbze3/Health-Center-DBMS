@@ -7,7 +7,7 @@
     z-index: 1000; /* Places it above all other content */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
     border-radius: 8px; /* Rounds the edges */
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(231, 231, 231);
 }
 
 .addFormDiv {

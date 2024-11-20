@@ -90,7 +90,7 @@ function AppointmentsAdditionForm() {
                                     >
                                         <Form.Label>Date</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="date"
                                             name="date"
                                             value={values.date}
                                             placeholder="Date"
@@ -110,7 +110,7 @@ function AppointmentsAdditionForm() {
                                     >
                                         <Form.Label>Time</Form.Label>
                                         <Form.Control
-                                            type="text"
+                                            type="time"
                                             placeholder="E.g. 12:00:00"
                                             name="time"
                                             value={values.time}
@@ -149,7 +149,7 @@ function AppointmentsAdditionForm() {
                                     variant="success"
                                     className="submitRecordButton"
                                 >
-                                    Add Appointment
+                                    Insert
                                 </Button>
                             </div>
                         </Form>
