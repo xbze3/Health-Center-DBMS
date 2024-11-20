@@ -60,6 +60,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="first_name"
+                                            placeholder="E.g. John"
                                             value={values.first_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.first_name}
@@ -77,6 +78,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="last_name"
+                                            placeholder="E.g. Doe"
                                             value={values.last_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.last_name}
@@ -113,6 +115,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="gender"
+                                            placeholder="E.g. Male"
                                             value={values.gender}
                                             onChange={handleChange}
                                             isInvalid={!!errors.gender}
@@ -131,6 +134,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="contact_number"
+                                            placeholder="E.g. 555-5555"
                                             value={values.contact_number}
                                             onChange={handleChange}
                                             isInvalid={!!errors.contact_number}
@@ -148,6 +152,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="address"
+                                            placeholder="E.g. xxx Maple St, Springfield"
                                             value={values.address}
                                             onChange={handleChange}
                                             isInvalid={!!errors.address}
@@ -169,6 +174,7 @@ function PatientAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="contact_number"
+                                            placeholder="E.g. 333-3333"
                                             value={values.emergency_contact}
                                             onChange={handleChange}
                                             isInvalid={

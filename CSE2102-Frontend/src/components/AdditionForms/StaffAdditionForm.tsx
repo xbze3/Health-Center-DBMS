@@ -58,6 +58,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="first_name"
+                                            placeholder="E.g. John"
                                             value={values.first_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.first_name}
@@ -75,6 +76,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="last_name"
+                                            placeholder="E.g. Doe"
                                             value={values.last_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.last_name}
@@ -92,6 +94,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="role"
+                                            placeholder="E.g. Nurse"
                                             value={values.role}
                                             onChange={handleChange}
                                             isInvalid={!!errors.role}
@@ -111,6 +114,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="specialty"
+                                            placeholder="E.g. Oncology"
                                             value={values.specialty}
                                             onChange={handleChange}
                                             isInvalid={!!errors.specialty}
@@ -129,6 +133,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="contact_number"
+                                            placeholder="E.g. 555-5555"
                                             value={values.contact_number}
                                             onChange={handleChange}
                                             isInvalid={!!errors.contact_number}
@@ -146,6 +151,7 @@ function StaffAdditionForm() {
                                         <Form.Control
                                             type="email"
                                             name="email"
+                                            placeholder="E.g. johndoe@gmail.com"
                                             value={values.email}
                                             onChange={handleChange}
                                             isInvalid={!!errors.email}

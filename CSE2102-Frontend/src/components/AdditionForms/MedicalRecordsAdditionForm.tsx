@@ -59,6 +59,7 @@ function MedicalRecordsAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="patientID"
+                                            placeholder="E.g. 1"
                                             value={values.patientID}
                                             onChange={handleChange}
                                             isInvalid={!!errors.patientID}
@@ -76,6 +77,7 @@ function MedicalRecordsAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="staffID"
+                                            placeholder="E.g. 20"
                                             value={values.staffID}
                                             onChange={handleChange}
                                             isInvalid={!!errors.staffID}
@@ -91,8 +93,9 @@ function MedicalRecordsAdditionForm() {
                                     >
                                         <Form.Label>Diagnosis</Form.Label>
                                         <Form.Control
-                                            type="date"
+                                            type="text"
                                             name="diagnosis"
+                                            placeholder="E.g. Fracture"
                                             value={values.diagnosis}
                                             onChange={handleChange}
                                             isInvalid={!!errors.diagnosis}
@@ -112,6 +115,7 @@ function MedicalRecordsAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="treatment"
+                                            placeholder="E.g. Amoxicillin 460 mg"
                                             value={values.treatment}
                                             onChange={handleChange}
                                             isInvalid={!!errors.treatment}
@@ -147,6 +151,7 @@ function MedicalRecordsAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="notes"
+                                            placeholder="E.g. Follow-up needed"
                                             value={values.notes}
                                             onChange={handleChange}
                                             isInvalid={!!errors.notes}

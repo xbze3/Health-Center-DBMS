@@ -133,6 +133,7 @@ function AppointmentsAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="reason_for_visit"
+                                            placeholder="E.g. Emergency"
                                             value={values.reason_for_visit}
                                             onChange={handleChange}
                                             isInvalid={

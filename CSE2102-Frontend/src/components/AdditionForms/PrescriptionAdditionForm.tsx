@@ -58,6 +58,7 @@ function PrescriptionAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="patientID"
+                                            placeholder="E.g. 1"
                                             value={values.patientID}
                                             onChange={handleChange}
                                             isInvalid={!!errors.patientID}
@@ -75,6 +76,7 @@ function PrescriptionAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="staffID"
+                                            placeholder="E.g. 23"
                                             value={values.staffID}
                                             onChange={handleChange}
                                             isInvalid={!!errors.staffID}
@@ -92,6 +94,7 @@ function PrescriptionAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="medication_name"
+                                            placeholder="E.g. Amoxicillin"
                                             value={values.medication_name}
                                             onChange={handleChange}
                                             isInvalid={!!errors.medication_name}
@@ -111,6 +114,7 @@ function PrescriptionAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="dosage"
+                                            placeholder="E.g. 13 mg"
                                             value={values.dosage}
                                             onChange={handleChange}
                                             isInvalid={!!errors.dosage}
@@ -129,6 +133,7 @@ function PrescriptionAdditionForm() {
                                         <Form.Control
                                             type="text"
                                             name="instructions"
+                                            placeholder="E.g. Take at bedtime"
                                             value={values.instructions}
                                             onChange={handleChange}
                                             isInvalid={!!errors.instructions}
@@ -144,7 +149,7 @@ function PrescriptionAdditionForm() {
                                     >
                                         <Form.Label>Date Issued</Form.Label>
                                         <Form.Control
-                                            type="date_issued"
+                                            type="date"
                                             name="date_issued"
                                             value={values.date_issued}
                                             onChange={handleChange}
