@@ -1,13 +1,15 @@
 .addForm {
     position: fixed;
-    width: 850px;
+    max-width: 90%;
+    width: 100%;
     top: 50%;
-    left: 50%; /* Horizontally centers the form */
-    transform: translate(-50%, -50%); /* Ensures exact centering */
-    z-index: 1000; /* Places it above all other content */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
-    border-radius: 8px; /* Rounds the edges */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
     background-color: rgb(231, 231, 231);
+    padding: 20px;
 }
 
 .addFormDiv {
@@ -20,4 +22,12 @@
 
 .hideAddBox {
     display: none;
+}
+
+@media (max-width: 600px) {
+    .showAddBox {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 5px;
+    }
 }
