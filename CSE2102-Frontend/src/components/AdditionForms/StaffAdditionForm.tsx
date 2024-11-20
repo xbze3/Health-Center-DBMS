@@ -12,6 +12,7 @@ function StaffAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
+        page: yup.string(),
         first_name: yup.string().required(),
         last_name: yup.string().required(),
         role: yup.string().required(),
@@ -33,6 +34,7 @@ function StaffAdditionForm() {
                     validationSchema={schema}
                     onSubmit={console.log}
                     initialValues={{
+                        page: "staff",
                         first_name: "",
                         last_name: "",
                         role: "",

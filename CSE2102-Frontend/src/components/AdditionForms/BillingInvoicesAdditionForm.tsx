@@ -12,6 +12,7 @@ function PatientAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
+        page: yup.string(),
         patientID: yup.string().required(),
         amount: yup.string().required(),
         payment_status: yup.string().required(),
@@ -31,6 +32,7 @@ function PatientAdditionForm() {
                     validationSchema={schema}
                     onSubmit={console.log}
                     initialValues={{
+                        page: "billing-invoices",
                         patientID: "",
                         amount: "",
                         payment_status: "",

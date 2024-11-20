@@ -12,6 +12,7 @@ function AppointmentsAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
+        page: yup.string(),
         patientID: yup.string().required(),
         staffID: yup.string().required(),
         date: yup.string().required(),
@@ -32,6 +33,7 @@ function AppointmentsAdditionForm() {
                     validationSchema={schema}
                     onSubmit={console.log}
                     initialValues={{
+                        page: "appointments",
                         patientID: "",
                         staffID: "",
                         date: "",
