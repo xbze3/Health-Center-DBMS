@@ -416,58 +416,165 @@ app.get("/api/doctor-record-counts", authenticateToken, (re, res) => {
 // Insertion Routes
 
 app.post("/insert", authenticateToken, (req, res) => {
-    const { page, patientID, staffID, date, time, reason_for_visit } = req.body;
+    const { page } = req.body;
+
+    if (page == "appointments") {
+        const { patientID, staffID, date, time, reason_for_visit } = req.body;
+        const checkQuery = `
+            SELECT * FROM appointments
+            WHERE Patient_ID = ? AND Staff_ID = ? AND Date = ? AND Time = ?
+        `;
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO appointments (Patient_ID, Staff_ID, Date, Time, Reason_for_Visit)
+        VALUES (?, ?, ?, ?, ?)`;
+        db.query(
+            checkQuery,
+            [patientID, staffID, date, time],
+            (err, results) => {
+                if (err) {
+                    console.error("Error checking for existing record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+                if (results.length > 0) {
+                    // Record already exists
+                    res.status(409).json({
+                        message:
+                            "A record with the same staffID, patientID, date, and time already exists.",
+                    });
+                } else {
+                    // Insert the new record
+                    db.query(
+                        insertQuery,
+                        [patientID, staffID, date, time, reason_for_visit],
+                        (err, results) => {
+                            if (err) {
+                                console.error("Error inserting record:", err);
+                                return res
+                                    .status(500)
+                                    .json({ error: "Database error." });
+                            }
+                            res.status(201).json({
+                                message: "Record inserted successfully.",
+                                recordID: results.insertId,
+                            });
+                        }
+                    );
+                }
+            }
+        );
+    } else if (page == "billing-invoices") {
+        const { patientID, amount, payment_status, payment_date } = req.body;
+
+        const checkQuery = `
+            SELECT * FROM \`billing/invoices\`
+            WHERE Patient_ID = ? AND Amount = ? AND Payment_Status = ?
+        `;
+
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO \`billing/invoices\` (Patient_ID, Amount, Payment_Status, Payment_Date)
+        VALUES (?, ?, ?, ?)`;
+        // Insert the new record
+        db.query(
+            insertQuery,
+            [patientID, amount, payment_status, payment_date],
+            (err, results) => {
+                if (err) {
+                    console.error("Error inserting record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+
+                res.status(201).json({
+                    message: "Record inserted successfully.",
+                    recordID: results.insertId,
+                });
+            }
+        );
+    } else if (page == "medical-records") {
+        const { patientID, staffID, diagnosis, treatment, date, notes } =
+            req.body;
+
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO \`medical records\` (Patient_ID, Staff_ID, Diagnosis, Treatment, Visit_Date, Notes)
+        VALUES (?, ?, ?, ?, ?, ?)`;
+
+        db.query(
+            insertQuery,
+            [patientID, staffID, diagnosis, treatment, date, notes],
+            (err, results) => {
+                if (err) {
+                    console.error("Error inserting record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+                res.status(201).json({
+                    message: "Record inserted successfully.",
+                    recordID: results.insertId,
+                });
+            }
+        );
+    } else if (page == "patient") {
+        const {
+            first_name,
+            last_name,
+            date_of_birth,
+            gender,
+            contact_number,
+            address,
+            emergency_contact,
+        } = req.body;
+        const checkQuery = `
+            SELECT * FROM patients
+            WHERE First_Name = ? AND Last_Name = ? AND Date_of_Birth = ? AND Gender = ?
+        `;
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO patients (First_Name, Last_Name, Date_of_Birth, Gender, Contact_Number, Address, Emergency_Contact)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        db.query(
+            checkQuery,
+            [patientID, staffID, date, time],
+            (err, results) => {
+                if (err) {
+                    console.error("Error checking for existing record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+                if (results.length > 0) {
+                    // Record already exists
+                    res.status(409).json({
+                        message:
+                            "A record with the same staffID, patientID, date, and time already exists.",
+                    });
+                } else {
+                    // Insert the new record
+                    db.query(
+                        insertQuery,
+                        [patientID, staffID, date, time, reason_for_visit],
+                        (err, results) => {
+                            if (err) {
+                                console.error("Error inserting record:", err);
+                                return res
+                                    .status(500)
+                                    .json({ error: "Database error." });
+                            }
+                            res.status(201).json({
+                                message: "Record inserted successfully.",
+                                recordID: results.insertId,
+                            });
+                        }
+                    );
+                }
+            }
+        );
+    } else if (page == "prescription") {
+    } else if (page == "staff") {
+    }
 
     // Log the data for debugging
-    console.log(
-        `Page ${page}\nPatient ID: ${patientID}\nStaff ID: ${staffID}\nDate: ${date}\nTime: ${time}\nReason for Visit: ${reason_for_visit}`
-    );
-
-    // SQL to check if the record exists
-    const checkQuery = `
-        SELECT * FROM appointments 
-        WHERE Patient_ID = ? AND Staff_ID = ? AND Date = ? AND Time = ?
-    `;
-
-    // SQL to insert a new record
-    const insertQuery = `
-        INSERT INTO appointments (Patient_ID, Staff_ID, Date, Time, Reason_for_Visit)
-        VALUES (?, ?, ?, ?, ?)
-    `;
-
-    db.query(checkQuery, [patientID, staffID, date, time], (err, results) => {
-        if (err) {
-            console.error("Error checking for existing record:", err);
-            return res.status(500).json({ error: "Database error." });
-        }
-
-        if (results.length > 0) {
-            // Record already exists
-            res.status(409).json({
-                message:
-                    "A record with the same staffID, patientID, date, and time already exists.",
-            });
-        } else {
-            // Insert the new record
-            db.query(
-                insertQuery,
-                [patientID, staffID, date, time, reason_for_visit],
-                (err, results) => {
-                    if (err) {
-                        console.error("Error inserting record:", err);
-                        return res
-                            .status(500)
-                            .json({ error: "Database error." });
-                    }
-
-                    res.status(201).json({
-                        message: "Record inserted successfully.",
-                        recordID: results.insertId,
-                    });
-                }
-            );
-        }
-    });
+    // console.log(
+    //     `Page ${page}\nPatient ID: ${patientID}\nStaff ID: ${staffID}\nDate: ${date}\nTime: ${time}\nReason for Visit: ${reason_for_visit}`
+    // );
 });
 
 // Login Queries
