@@ -670,21 +670,68 @@ app.post("/insert", authenticateToken, (req, res) => {
 app.post("/delete", authenticateToken, (req, res) => {
     const { page, ID } = req.body;
 
-    if (page == "appointments") {
-        const checkQuery = `
-            SELECT * FROM appointments
-            WHERE First_Name = ? AND Last_Name = ? AND Role = ? AND Specialty = ?
-        `;
-    } else if (page == "billing/invoices") {
-    } else if (page == "medical-records") {
-    } else if (page == "patients") {
-    } else if (page == "prescription") {
-    } else if (page == "staff") {
+    // Validate page and determine the corresponding table and condition
+    const tableMap = {
+        appointments: {
+            table: "appointments",
+            condition: "Appointment_ID = ?",
+        },
+        "billing/invoices": {
+            table: "`billing/invoices`",
+            condition: "Invoice_ID = ?",
+        },
+        "medical-records": {
+            table: "`medical records`",
+            condition: "Record_ID = ?",
+        },
+        patients: { table: "patients", condition: "Patient_ID = ?" },
+        prescription: {
+            table: "prescriptions",
+            condition: "Prescription_ID = ?",
+        },
+        staff: { table: "staff", condition: "Staff_ID = ?" },
+    };
+
+    if (!tableMap[page]) {
+        return res.status(400).json({ error: "Invalid page specified." });
     }
 
-    console.log(`Deletion Request from: ${page}\nRecord ID: ${ID}`);
+    const { table, condition } = tableMap[page];
 
-    return res.status(200).json({ error: "Success." });
+    // SQL queries
+    const checkQuery = `SELECT * FROM ${table} WHERE ${condition}`;
+    const deleteQuery = `DELETE FROM ${table} WHERE ${condition}`;
+
+    // Check if the record exists
+    db.query(checkQuery, [ID], (err, results) => {
+        if (err) {
+            console.error("Error checking for existing record:", err);
+            return res.status(500).json({ error: "Database error." });
+        }
+        if (results.length === 0) {
+            // Record does not exist
+            return res.status(404).json({ message: "Record does not exist." });
+        }
+
+        // Proceed to delete the record
+        db.query(deleteQuery, [ID], (err, results) => {
+            if (err) {
+                console.error("Error removing record:", err);
+                return res.status(500).json({ error: "Database error." });
+            }
+            if (results.affectedRows > 0) {
+                return res.status(200).json({
+                    message: "Record removed successfully.",
+                });
+            } else {
+                return res.status(500).json({
+                    error: "Unexpected error: no rows affected.",
+                });
+            }
+        });
+    });
+
+    // Ensure no further response is sent
 });
 
 // Login Queries
