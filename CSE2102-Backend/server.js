@@ -465,11 +465,6 @@ app.post("/insert", authenticateToken, (req, res) => {
     } else if (page == "billing-invoices") {
         const { patientID, amount, payment_status, payment_date } = req.body;
 
-        const checkQuery = `
-            SELECT * FROM \`billing/invoices\`
-            WHERE Patient_ID = ? AND Amount = ? AND Payment_Status = ?
-        `;
-
         // SQL to insert a new record
         const insertQuery = `
         INSERT INTO \`billing/invoices\` (Patient_ID, Amount, Payment_Status, Payment_Date)
@@ -574,13 +569,100 @@ app.post("/insert", authenticateToken, (req, res) => {
             }
         );
     } else if (page == "prescription") {
-    } else if (page == "staff") {
-    }
+        const {
+            patientID,
+            staffID,
+            medication_name,
+            dosage,
+            instructions,
+            date_issued,
+        } = req.body;
 
-    // Log the data for debugging
-    // console.log(
-    //     `Page ${page}\nPatient ID: ${patientID}\nStaff ID: ${staffID}\nDate: ${date}\nTime: ${time}\nReason for Visit: ${reason_for_visit}`
-    // );
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO prescriptions (Patient_ID, Staff_ID, Medication_Name, Dosage, Instructions, Date_Issued)
+        VALUES (?, ?, ?, ?, ?, ?)`;
+
+        db.query(
+            insertQuery,
+            [
+                patientID,
+                staffID,
+                medication_name,
+                dosage,
+                instructions,
+                date_issued,
+            ],
+            (err, results) => {
+                if (err) {
+                    console.error("Error inserting record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+                res.status(201).json({
+                    message: "Record inserted successfully.",
+                    recordID: results.insertId,
+                });
+            }
+        );
+    } else if (page == "staff") {
+        const {
+            first_name,
+            last_name,
+            role,
+            specialty,
+            contact_number,
+            email,
+        } = req.body;
+        const checkQuery = `
+            SELECT * FROM staff
+            WHERE First_Name = ? AND Last_Name = ? AND Role = ? AND Specialty = ?
+        `;
+        // SQL to insert a new record
+        const insertQuery = `
+        INSERT INTO staff (First_Name, Last_Name, Role, Specialty, Contact_Number, Email)
+        VALUES (?, ?, ?, ?, ?, ?)`;
+        db.query(
+            checkQuery,
+            [first_name, last_name, role, specialty],
+            (err, results) => {
+                if (err) {
+                    console.error("Error checking for existing record:", err);
+                    return res.status(500).json({ error: "Database error." });
+                }
+                if (results.length > 0) {
+                    // Record already exists
+                    res.status(409).json({
+                        message: "A record with the same data already exists.",
+                    });
+                } else {
+                    // Insert the new record
+                    db.query(
+                        insertQuery,
+                        [
+                            first_name,
+                            last_name,
+                            role,
+                            specialty,
+                            contact_number,
+                            email,
+                        ],
+                        (err, results) => {
+                            if (err) {
+                                console.error("Error inserting record:", err);
+                                return res
+                                    .status(500)
+                                    .json({ error: "Database error." });
+                            }
+                            res.status(201).json({
+                                message: "Record inserted successfully.",
+                                recordID: results.insertId,
+                            });
+                        }
+                    );
+                }
+            }
+        );
+    }
 });
 
 // Login Queries
