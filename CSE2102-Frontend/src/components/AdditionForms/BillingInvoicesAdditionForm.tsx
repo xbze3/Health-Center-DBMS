@@ -8,15 +8,23 @@ import * as formik from "formik";
 import * as yup from "yup";
 import { useState } from "react";
 
-function PatientAdditionForm() {
+interface FormValues {
+    page: string;
+    patientID: string;
+    amount: string;
+    payment_status: string;
+    payment_date: string;
+}
+
+function BillingInvoicesAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
         page: yup.string(),
-        patientID: yup.string().required(),
-        amount: yup.string().required(),
-        payment_status: yup.string().required(),
-        payment_date: yup.string().required(),
+        patientID: yup.string().required("Patient ID is required"),
+        amount: yup.string().required("Amount is required"),
+        payment_status: yup.string().required("Payment status is required"),
+        payment_date: yup.string().required("Payment date is required"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -25,12 +33,43 @@ function PatientAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    async function handleFormSubmit(values: FormValues) {
+        try {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://localhost:8081/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (err) {
+            console.error("An error occurred while inserting the record:", err);
+        }
+    }
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
-                <Formik
+                <Formik<FormValues>
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={handleFormSubmit}
                     initialValues={{
                         page: "billing-invoices",
                         patientID: "",
@@ -146,4 +185,4 @@ function PatientAdditionForm() {
     );
 }
 
-export default PatientAdditionForm;
+export default BillingInvoicesAdditionForm;

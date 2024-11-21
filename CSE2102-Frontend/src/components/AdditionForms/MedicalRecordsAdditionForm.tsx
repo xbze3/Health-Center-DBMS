@@ -8,17 +8,27 @@ import * as formik from "formik";
 import * as yup from "yup";
 import { useState } from "react";
 
+interface FormValues {
+    page: string;
+    patientID: string;
+    staffID: string;
+    diagnosis: string;
+    treatment: string;
+    date: string;
+    notes: string;
+}
+
 function MedicalRecordsAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
         page: yup.string(),
-        patientID: yup.string().required(),
-        staffID: yup.string().required(),
-        diagnosis: yup.string().required(),
-        treatment: yup.string().required(),
-        date: yup.string().required(),
-        notes: yup.string().required(),
+        patientID: yup.string().required("Patient ID is required"),
+        staffID: yup.string().required("Staff ID is required"),
+        diagnosis: yup.string().required("Diagnosis is required"),
+        treatment: yup.string().required("Treatment is required"),
+        date: yup.string().required("Date is required"),
+        notes: yup.string().required("Notes are required"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -27,12 +37,43 @@ function MedicalRecordsAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    async function handleFormSubmit(values: FormValues) {
+        try {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://localhost:8081/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (err) {
+            console.error("An error occurred while inserting the record:", err);
+        }
+    }
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
-                <Formik
+                <Formik<FormValues>
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={handleFormSubmit}
                     initialValues={{
                         page: "medical-records",
                         patientID: "",
@@ -41,7 +82,6 @@ function MedicalRecordsAdditionForm() {
                         treatment: "",
                         date: "",
                         notes: "",
-                        emergency_contact: "",
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors }) => (
