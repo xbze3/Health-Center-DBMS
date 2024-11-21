@@ -16,6 +16,10 @@
     width: 140px;
 }
 
+.submitRecordButton {
+    margin-top: 15px;
+}
+
 .showAddBox {
     display: block;
 }
