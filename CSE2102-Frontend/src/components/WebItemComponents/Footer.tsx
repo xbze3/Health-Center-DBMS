@@ -39,7 +39,10 @@ function Footer() {
                     </ul>
                 </div> */}
 
-                <div className="rowText">MINTLEAF</div>
+                <div className="rowText">
+                    <b>MINTLEAF Tech</b> || Health Center Database Management
+                    System
+                </div>
                 <div className="rowText">
                     Designed and Developed By: Ezra Minty
                 </div>
