@@ -1,14 +1,53 @@
 .addFormButton {
     position: fixed;
-    bottom: 5%; /* Pushes it up slightly from the bottom */
-    right: 2%; /* Aligns slightly inward from the right */
+    bottom: 12%;
+    right: 2%;
     z-index: 1000;
     transform: translate(0, 0); /* Remove unnecessary translate properties */
+    width: 140px;
+}
+
+.removeFormButton {
+    position: fixed;
+    bottom: 5%;
+    right: 2%;
+    z-index: 1000;
+    transform: translate(0, 0);
+    width: 140px;
+}
+
+.showAddBox {
+    display: block;
+}
+
+.hideAddBox {
+    display: none;
+}
+
+.showRemoveBox {
+    display: block;
+}
+
+.hideRemoveBox {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .showAddBox {
+        margin: 10px;
+        padding: 15px;
+        border-radius: 5px;
+    }
 }
 
 @media (max-width: 600px) {
     .addFormButton {
-        bottom: 5%; /* Adjust for smaller screens */
+        bottom: 12%; /* Adjust for smaller screens */
+        right: 2%;
+    }
+
+    .removeFormButton {
+        bottom: 5%;
         right: 2%;
     }
 }
