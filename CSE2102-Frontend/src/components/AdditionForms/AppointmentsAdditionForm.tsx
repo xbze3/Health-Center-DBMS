@@ -8,16 +8,25 @@ import * as formik from "formik";
 import * as yup from "yup";
 import { useState } from "react";
 
+interface FormValues {
+    page: string;
+    patientID: string;
+    staffID: string;
+    date: string;
+    time: string;
+    reason_for_visit: string;
+}
+
 function AppointmentsAdditionForm() {
     const { Formik } = formik;
 
     const schema = yup.object().shape({
         page: yup.string(),
-        patientID: yup.string().required(),
-        staffID: yup.string().required(),
-        date: yup.string().required(),
-        time: yup.string().required(),
-        reason_for_visit: yup.string().required(),
+        patientID: yup.string().required("Patient ID is required"),
+        staffID: yup.string().required("Staff ID is required"),
+        date: yup.string().required("Date is required"),
+        time: yup.string().required("Time is required"),
+        reason_for_visit: yup.string().required("Reason for visit is required"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -26,12 +35,43 @@ function AppointmentsAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    async function handleFormSubmit(values: FormValues) {
+        try {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://localhost:8081/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (err) {
+            console.error("An error occurred while inserting the record:", err);
+        }
+    }
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
-                <Formik
+                <Formik<FormValues>
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={handleFormSubmit}
                     initialValues={{
                         page: "appointments",
                         patientID: "",
@@ -88,7 +128,7 @@ function AppointmentsAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="4"
-                                        controlId="validationFormik02"
+                                        controlId="validationFormik03"
                                     >
                                         <Form.Label>Date</Form.Label>
                                         <Form.Control
@@ -108,7 +148,7 @@ function AppointmentsAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="6"
-                                        controlId="validationFormik03"
+                                        controlId="validationFormik04"
                                     >
                                         <Form.Label>Time</Form.Label>
                                         <Form.Control
@@ -119,15 +159,14 @@ function AppointmentsAdditionForm() {
                                             onChange={handleChange}
                                             isInvalid={!!errors.time}
                                         />
-
                                         <Form.Control.Feedback type="invalid">
                                             {errors.time}
                                         </Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group
                                         as={Col}
-                                        md="3"
-                                        controlId="validationFormik04"
+                                        md="6"
+                                        controlId="validationFormik05"
                                     >
                                         <Form.Label>
                                             Reason for Visit

@@ -237,6 +237,8 @@ app.get("/admin-billing-invoices/:value", authenticateToken, (re, res) => {
 app.get("/api/record-counts", authenticateToken, (req, res) => {
     const staffId = req.user.id;
 
+    console.log("Checkpoint");
+
     if (staffId !== 0) {
         return res.status(403).json({ message: "Forbidden: Access is denied" });
     }
@@ -368,7 +370,7 @@ app.get("/med-prescriptions/:value1", authenticateToken, (re, res) => {
     });
 });
 
-// Add this route to the Express app
+// Count Route
 
 app.get("/api/doctor-record-counts", authenticateToken, (re, res) => {
     const staffId = re.user.id; // Changed to staffId to match the field
@@ -412,6 +414,63 @@ app.get("/api/doctor-record-counts", authenticateToken, (re, res) => {
 });
 
 // End of Doctor Queries
+
+// Insertion Routes
+
+app.post("/insert", authenticateToken, (req, res) => {
+    const { page, patientID, staffID, date, time, reason_for_visit } = req.body;
+
+    // Log the data for debugging
+    console.log(
+        `Page ${page}\nPatient ID: ${patientID}\nStaff ID: ${staffID}\nDate: ${date}\nTime: ${time}\nReason for Visit: ${reason_for_visit}`
+    );
+
+    // SQL to check if the record exists
+    const checkQuery = `
+        SELECT * FROM appointments 
+        WHERE Patient_ID = ? AND Staff_ID = ? AND Date = ? AND Time = ?
+    `;
+
+    // SQL to insert a new record
+    const insertQuery = `
+        INSERT INTO appointments (Patient_ID, Staff_ID, Date, Time, Reason_for_Visit)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    db.query(checkQuery, [patientID, staffID, date, time], (err, results) => {
+        if (err) {
+            console.error("Error checking for existing record:", err);
+            return res.status(500).json({ error: "Database error." });
+        }
+
+        if (results.length > 0) {
+            // Record already exists
+            res.status(409).json({
+                message:
+                    "A record with the same staffID, patientID, date, and time already exists.",
+            });
+        } else {
+            // Insert the new record
+            db.query(
+                insertQuery,
+                [patientID, staffID, date, time, reason_for_visit],
+                (err, results) => {
+                    if (err) {
+                        console.error("Error inserting record:", err);
+                        return res
+                            .status(500)
+                            .json({ error: "Database error." });
+                    }
+
+                    res.status(201).json({
+                        message: "Record inserted successfully.",
+                        recordID: results.insertId,
+                    });
+                }
+            );
+        }
+    });
+});
 
 // Login Queries
 
