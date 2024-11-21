@@ -439,8 +439,7 @@ app.post("/insert", authenticateToken, (req, res) => {
                 if (results.length > 0) {
                     // Record already exists
                     res.status(409).json({
-                        message:
-                            "A record with the same staffID, patientID, date, and time already exists.",
+                        message: "A record with the same data already exists.",
                     });
                 } else {
                     // Insert the new record
@@ -534,7 +533,7 @@ app.post("/insert", authenticateToken, (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?, ?)`;
         db.query(
             checkQuery,
-            [patientID, staffID, date, time],
+            [first_name, last_name, date_of_birth, gender],
             (err, results) => {
                 if (err) {
                     console.error("Error checking for existing record:", err);
@@ -543,14 +542,21 @@ app.post("/insert", authenticateToken, (req, res) => {
                 if (results.length > 0) {
                     // Record already exists
                     res.status(409).json({
-                        message:
-                            "A record with the same staffID, patientID, date, and time already exists.",
+                        message: "A record with the same data already exists.",
                     });
                 } else {
                     // Insert the new record
                     db.query(
                         insertQuery,
-                        [patientID, staffID, date, time, reason_for_visit],
+                        [
+                            first_name,
+                            last_name,
+                            date_of_birth,
+                            gender,
+                            contact_number,
+                            address,
+                            emergency_contact,
+                        ],
                         (err, results) => {
                             if (err) {
                                 console.error("Error inserting record:", err);
