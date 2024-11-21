@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
     padding: 0px;
@@ -11,7 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .container {
@@ -96,7 +96,7 @@
     width: 220px;
     height: 59px;
     color: #fff;
-    background-color: rgb(47, 54, 116);
+    background-color: #1b262e;
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
@@ -105,7 +105,7 @@
 }
 
 .submit:hover {
-    background-color: rgb(77, 86, 167);
+    background-color: #2a3a45;
 }
 
 .error-message {

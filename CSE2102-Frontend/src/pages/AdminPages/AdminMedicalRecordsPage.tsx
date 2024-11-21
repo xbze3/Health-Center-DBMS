@@ -1,6 +1,7 @@
 import MedicalRecordsPageComponent from "../../../src/components/PageComponents/MedicalRecordsPageComponent";
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 import MedicalRecordsAdditionForm from "../../components/AdditionForms/MedicalRecordsAdditionForm";
+import Footer from "../../components/WebItemComponents/Footer";
 
 const MEDICAL_RECORDS_ROUTE =
     import.meta.env.VITE_ADMIN_GET_MEDICAL_RECORDS || "";
@@ -16,6 +17,8 @@ function AdminMedicalRecordsPage() {
                 initialFetchUrl={MEDICAL_RECORDS_ROUTE}
                 searchBaseUrl={MEDICAL_RECORDS_ROUTE}
             />
+
+            <Footer />
         </>
     );
 }
