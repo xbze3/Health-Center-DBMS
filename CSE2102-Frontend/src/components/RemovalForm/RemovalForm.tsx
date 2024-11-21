@@ -11,6 +11,7 @@ import { useState } from "react";
 interface FormValues {
     page: string;
     ID: string;
+    terms: boolean;
 }
 
 interface Props {
@@ -24,6 +25,10 @@ function RemovalForm({ page, message }: Props) {
     const schema = yup.object().shape({
         page: yup.string(),
         ID: yup.string().required(`${message} is required`),
+        terms: yup
+            .bool()
+            .required(`Consent must be provided`)
+            .oneOf([true], "Terms must be accepted"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -52,12 +57,12 @@ function RemovalForm({ page, message }: Props) {
                 // Add any additional logic here, e.g., resetting the form or showing a success message
             } else {
                 const errorData = await response.json();
-                alert(
+                console.log(
                     `Removal failed: ${errorData.message || "Unknown error"}`
                 );
             }
         } catch (err) {
-            alert(`An error occurred while removing the record: ${err}`);
+            console.log(`An error occurred while removing the record: ${err}`);
         }
     }
 
@@ -70,6 +75,7 @@ function RemovalForm({ page, message }: Props) {
                     initialValues={{
                         page: page,
                         ID: "",
+                        terms: false,
                     }}
                 >
                     {({ handleSubmit, handleChange, values, errors }) => (
@@ -97,6 +103,27 @@ function RemovalForm({ page, message }: Props) {
                                         <Form.Control.Feedback type="invalid">
                                             {errors.ID}
                                         </Form.Control.Feedback>
+                                    </Form.Group>
+                                </Row>
+                                <Row>
+                                    <Form.Group className="mb-3">
+                                        <Form.Check
+                                            required
+                                            name="terms"
+                                            label="I consent to the removal of this record"
+                                            onChange={(e) => {
+                                                handleChange({
+                                                    target: {
+                                                        name: e.target.name,
+                                                        value: e.target.checked,
+                                                    },
+                                                });
+                                            }}
+                                            isInvalid={!!errors.terms}
+                                            feedback={errors.terms}
+                                            feedbackType="invalid"
+                                            id="validationFormik0"
+                                        />
                                     </Form.Group>
                                 </Row>
                                 <Button

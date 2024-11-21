@@ -2,6 +2,7 @@ import PatientsPageComponent from "../../../src/components/PageComponents/Patien
 import AdminNavBar from "../../../src/components/AdminComponents/AdminNavBar";
 import PatientAdditionForm from "../../components/AdditionForms/PatientAdditionForm";
 import Footer from "../../components/WebItemComponents/Footer";
+import RemovalForm from "../../components/RemovalForm/RemovalForm";
 
 const PATIENTS_ROUTE = import.meta.env.VITE_ADMIN_GET_PATIENTS || "";
 
@@ -11,6 +12,11 @@ function AdminPatientsPage() {
             <AdminNavBar />
 
             <PatientAdditionForm />
+
+            <RemovalForm
+                page="patients"
+                message="ID of Patient Record to be removed"
+            />
 
             <PatientsPageComponent
                 initialFetchUrl={PATIENTS_ROUTE}

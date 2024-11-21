@@ -670,7 +670,21 @@ app.post("/insert", authenticateToken, (req, res) => {
 app.post("/delete", authenticateToken, (req, res) => {
     const { page, ID } = req.body;
 
+    if (page == "appointments") {
+        const checkQuery = `
+            SELECT * FROM appointments
+            WHERE First_Name = ? AND Last_Name = ? AND Role = ? AND Specialty = ?
+        `;
+    } else if (page == "billing/invoices") {
+    } else if (page == "medical-records") {
+    } else if (page == "patients") {
+    } else if (page == "prescription") {
+    } else if (page == "staff") {
+    }
+
     console.log(`Deletion Request from: ${page}\nRecord ID: ${ID}`);
+
+    return res.status(200).json({ error: "Success." });
 });
 
 // Login Queries
