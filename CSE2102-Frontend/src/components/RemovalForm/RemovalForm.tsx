@@ -37,7 +37,7 @@ function RemovalForm({ page, message }: Props) {
             // Retrieve the token from localStorage
             const token = localStorage.getItem("token");
 
-            const response = await fetch("http://localhost:8081/insert", {
+            const response = await fetch("http://localhost:8081/delete", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -47,15 +47,17 @@ function RemovalForm({ page, message }: Props) {
             });
 
             if (response.ok) {
-                alert(`Record inserted successfully`);
+                alert(`Record removed successfully`);
 
                 // Add any additional logic here, e.g., resetting the form or showing a success message
             } else {
                 const errorData = await response.json();
-                alert(`Insert failed: ${errorData.message || "Unknown error"}`);
+                alert(
+                    `Removal failed: ${errorData.message || "Unknown error"}`
+                );
             }
         } catch (err) {
-            alert(`An error occurred while inserting the record: ${err}`);
+            alert(`An error occurred while removing the record: ${err}`);
         }
     }
 

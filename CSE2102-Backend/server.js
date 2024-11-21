@@ -413,7 +413,7 @@ app.get("/api/doctor-record-counts", authenticateToken, (re, res) => {
 
 // End of Doctor Queries
 
-// Insertion Routes
+// Insertion Route
 
 app.post("/insert", authenticateToken, (req, res) => {
     const { page } = req.body;
@@ -663,6 +663,14 @@ app.post("/insert", authenticateToken, (req, res) => {
             }
         );
     }
+});
+
+// Deletion Route
+
+app.post("/delete", authenticateToken, (req, res) => {
+    const { page, ID } = req.body;
+
+    console.log(`Deletion Request from: ${page}\nRecord ID: ${ID}`);
 });
 
 // Login Queries
