@@ -43,18 +43,15 @@ function PatientAdditionForm() {
             });
 
             if (response.ok) {
-                const data = await response.json();
-                console.log("Record inserted successfully:", data);
+                alert(`Record inserted successfully`);
+
                 // Add any additional logic here, e.g., resetting the form or showing a success message
             } else {
                 const errorData = await response.json();
-                console.error(
-                    "Insert failed:",
-                    errorData.message || "Unknown error"
-                );
+                alert(`Insert failed: ${errorData.message || "Unknown error"}`);
             }
         } catch (err) {
-            console.error("An error occurred while inserting the record:", err);
+            alert(`An error occurred while inserting the record: ${err}`);
         }
     }
 
