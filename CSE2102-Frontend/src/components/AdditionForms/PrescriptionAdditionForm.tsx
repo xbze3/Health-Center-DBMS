@@ -8,6 +8,17 @@ import * as formik from "formik";
 import * as yup from "yup";
 import { useState } from "react";
 
+// Define the structure of form values
+interface FormValues {
+    page: string;
+    patientID: string;
+    staffID: string;
+    medication_name: string;
+    dosage: string;
+    instructions: string;
+    date_issued: string;
+}
+
 function PrescriptionAdditionForm() {
     const { Formik } = formik;
 
@@ -27,12 +38,41 @@ function PrescriptionAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    const handleSubmit = async (values: FormValues) => {
+        const token = localStorage.getItem("token");
+
+        try {
+            const response = await fetch("/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (error) {
+            console.error("Error inserting record:", error);
+        }
+    };
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
                 <Formik
                     validationSchema={schema}
-                    onSubmit={console.log} // Update with actual form submission handler
+                    onSubmit={handleSubmit}
                     initialValues={{
                         page: "prescription",
                         patientID: "",

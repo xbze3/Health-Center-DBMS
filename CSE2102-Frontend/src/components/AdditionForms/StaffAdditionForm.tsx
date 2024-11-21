@@ -13,12 +13,15 @@ function StaffAdditionForm() {
 
     const schema = yup.object().shape({
         page: yup.string(),
-        first_name: yup.string().required(),
-        last_name: yup.string().required(),
-        role: yup.string().required(),
-        specialty: yup.string().required(),
-        contact_number: yup.string().required(),
-        email: yup.string().required(),
+        first_name: yup.string().required("First Name is required"),
+        last_name: yup.string().required("Last Name is required"),
+        role: yup.string().required("Role is required"),
+        specialty: yup.string().required("Specialty is required"),
+        contact_number: yup.string().required("Contact Number is required"),
+        email: yup
+            .string()
+            .email("Invalid email format")
+            .required("Email is required"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -27,12 +30,42 @@ function StaffAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    const handleSubmit = async (values: any) => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://localhost:8081/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+                },
+                body: JSON.stringify(values), // Send the form data as JSON
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            // Handle error (e.g., display an error message)
+        }
+    };
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
                 <Formik
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={handleSubmit}
                     initialValues={{
                         page: "staff",
                         first_name: "",
@@ -90,7 +123,7 @@ function StaffAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="4"
-                                        controlId="validationFormik02"
+                                        controlId="validationFormik03"
                                     >
                                         <Form.Label>Role</Form.Label>
                                         <Form.Control
@@ -110,7 +143,7 @@ function StaffAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="6"
-                                        controlId="validationFormik03"
+                                        controlId="validationFormik04"
                                     >
                                         <Form.Label>Specialty</Form.Label>
                                         <Form.Control
@@ -121,7 +154,6 @@ function StaffAdditionForm() {
                                             onChange={handleChange}
                                             isInvalid={!!errors.specialty}
                                         />
-
                                         <Form.Control.Feedback type="invalid">
                                             {errors.specialty}
                                         </Form.Control.Feedback>
@@ -129,7 +161,7 @@ function StaffAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="3"
-                                        controlId="validationFormik04"
+                                        controlId="validationFormik05"
                                     >
                                         <Form.Label>Contact Number</Form.Label>
                                         <Form.Control
@@ -147,7 +179,7 @@ function StaffAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="3"
-                                        controlId="validationFormik04"
+                                        controlId="validationFormik06"
                                     >
                                         <Form.Label>Email</Form.Label>
                                         <Form.Control
