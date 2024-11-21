@@ -28,12 +28,42 @@ function PatientAdditionForm() {
         setIsVisible((prevState) => !prevState);
     }
 
+    async function handleFormSubmit(values: any) {
+        try {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("http://localhost:8081/insert", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+                },
+                body: JSON.stringify(values),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("Record inserted successfully:", data);
+                // Add any additional logic here, e.g., resetting the form or showing a success message
+            } else {
+                const errorData = await response.json();
+                console.error(
+                    "Insert failed:",
+                    errorData.message || "Unknown error"
+                );
+            }
+        } catch (err) {
+            console.error("An error occurred while inserting the record:", err);
+        }
+    }
+
     return (
         <>
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
                 <Formik
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={handleFormSubmit}
                     initialValues={{
                         page: "patient",
                         first_name: "",
@@ -122,7 +152,6 @@ function PatientAdditionForm() {
                                             onChange={handleChange}
                                             isInvalid={!!errors.gender}
                                         />
-
                                         <Form.Control.Feedback type="invalid">
                                             {errors.gender}
                                         </Form.Control.Feedback>
@@ -175,7 +204,7 @@ function PatientAdditionForm() {
                                         </Form.Label>
                                         <Form.Control
                                             type="text"
-                                            name="contact_number"
+                                            name="emergency_contact"
                                             placeholder="E.g. 333-3333"
                                             value={values.emergency_contact}
                                             onChange={handleChange}

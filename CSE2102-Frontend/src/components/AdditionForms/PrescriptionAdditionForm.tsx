@@ -13,12 +13,12 @@ function PrescriptionAdditionForm() {
 
     const schema = yup.object().shape({
         page: yup.string(),
-        patientID: yup.string().required(),
-        staffID: yup.string().required(),
-        medication_name: yup.string().required(),
-        dosage: yup.string().required(),
-        instructions: yup.string().required(),
-        date_issued: yup.string().required(),
+        patientID: yup.string().required("Patient ID is required"),
+        staffID: yup.string().required("Staff ID is required"),
+        medication_name: yup.string().required("Medication name is required"),
+        dosage: yup.string().required("Dosage is required"),
+        instructions: yup.string().required("Instructions are required"),
+        date_issued: yup.date().required("Date issued is required"),
     });
 
     const [isVisible, setIsVisible] = useState(false);
@@ -32,7 +32,7 @@ function PrescriptionAdditionForm() {
             <div className={isVisible ? "showAddBox" : "hideAddBox"}>
                 <Formik
                     validationSchema={schema}
-                    onSubmit={console.log}
+                    onSubmit={console.log} // Update with actual form submission handler
                     initialValues={{
                         page: "prescription",
                         patientID: "",
@@ -90,7 +90,7 @@ function PrescriptionAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="4"
-                                        controlId="validationFormik02"
+                                        controlId="validationFormik03"
                                     >
                                         <Form.Label>Medication Name</Form.Label>
                                         <Form.Control
@@ -110,7 +110,7 @@ function PrescriptionAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="6"
-                                        controlId="validationFormik03"
+                                        controlId="validationFormik04"
                                     >
                                         <Form.Label>Dosage</Form.Label>
                                         <Form.Control
@@ -121,7 +121,6 @@ function PrescriptionAdditionForm() {
                                             onChange={handleChange}
                                             isInvalid={!!errors.dosage}
                                         />
-
                                         <Form.Control.Feedback type="invalid">
                                             {errors.dosage}
                                         </Form.Control.Feedback>
@@ -129,7 +128,7 @@ function PrescriptionAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="3"
-                                        controlId="validationFormik04"
+                                        controlId="validationFormik05"
                                     >
                                         <Form.Label>Instructions</Form.Label>
                                         <Form.Control
@@ -147,7 +146,7 @@ function PrescriptionAdditionForm() {
                                     <Form.Group
                                         as={Col}
                                         md="3"
-                                        controlId="validationFormik04"
+                                        controlId="validationFormik06"
                                     >
                                         <Form.Label>Date Issued</Form.Label>
                                         <Form.Control
