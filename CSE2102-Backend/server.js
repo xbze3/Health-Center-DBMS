@@ -237,8 +237,6 @@ app.get("/admin-billing-invoices/:value", authenticateToken, (re, res) => {
 app.get("/api/record-counts", authenticateToken, (req, res) => {
     const staffId = req.user.id;
 
-    console.log("Checkpoint");
-
     if (staffId !== 0) {
         return res.status(403).json({ message: "Forbidden: Access is denied" });
     }
