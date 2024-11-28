@@ -82,6 +82,12 @@
 -   Search queries are powered by SQL logic.
 -   Users can efficiently search by fields such as First_Name, Last_Name, Staff_ID, etc.
 
+### Record Insertion / Removal Functionality
+
+-   Only the admin account is allowed to insert and remove records from the database.
+-   Records can be inserted by navigating the page to which the record should be added (Appointments, Patients, etc...), then clicking the "Add Record" button in the bottom right corner. At this point, a form upon which the new record information should be provided will become visible.
+-   Records can be removed by clicking the "Remove Record" button in the bottom right of the screen, and then providing the ID of the record to be removed.
+
 ### Current Features
 
 -   Admin, Doctor, and Nurse pages.
