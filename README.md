@@ -2,21 +2,6 @@
 
 This project consists of a full-stack Health Center Database Management System developed with Docker, React (Vite), Express, and MySQL. It includes a frontend that communicates with a backend API and a MySQL database for persistent data storage.
 
-## Table of Contents
-
-1. [Project Overview](#project-overview)
-2. [Tech Stack](#tech-stack)
-3. [Project Structure](#project-structure)
-4. [Setup Instructions](#setup-instructions)
-5. [Environment Variables](#environment-variables)
-6. [Docker Setup](#docker-setup)
-7. [Frontend](#frontend)
-8. [Backend](#backend)
-9. [Database](#database)
-10. [Health Check](#health-check)
-11. [Troubleshooting](#troubleshooting)
-12. [License](#license)
-
 ## Project Overview
 
 This project consists of a full-stack application with the following features:
