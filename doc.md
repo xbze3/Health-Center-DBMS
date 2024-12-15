@@ -1,4 +1,4 @@
-# CSE2102-Project
+# HCDMS
 
 ## MySQL | ExpressJS | ReactJS | React Bootstrap | NodeJS | Docker
 
